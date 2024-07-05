@@ -1,25 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { MdOutlineAdd } from 'react-icons/md';
-// import { baseApiUrl } from '../../../utils/constants';
-// import { categories, subjects, types } from '../../../engine_config';
 
 const AddPatient = ({ closeAddModal }) => {
     const [formData, setFormData] = useState({
-        firstname: '',
-        lastname: '',
-        age: '',
-        gender: '',
-        address: '',
-        email: '',
-        occupation: '',
-        marital_status: '',
-        phone: '',
-        religion: '',
-        fnnok: '',
-        lnnok: '',
-        pnok: '',
-        anok: ''
+        category: '',
     });
 
     const handleChange = (e) => {
@@ -224,3 +209,4 @@ const AddPatient = ({ closeAddModal }) => {
 }
 
 export default AddPatient;
+

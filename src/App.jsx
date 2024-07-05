@@ -20,6 +20,7 @@ import EditProfile from './pages/profile/EditProfile';
 import Inventory from './pages/dashboard/inventory/Inventory';
 import Settings from './pages/dashboard/settings/Settings';
 import DrugCategories from './pages/dashboard/settings/drugCategory/DrugCategories';
+import InventoryDetails from './pages/dashboard/inventory/InventoryDetails';
 
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
           <Route path='/dashboard/records' element={<Records />} />
           <Route path='/dashboard/payments' element={<Payments />} />
           <Route path='/dashboard/inventory' element={<Inventory />} />
+          <Route path='/dashboard/inventory/:category' element={<InventoryDetails />} />
           <Route path='/dashboard/settings' element={<Settings />}>
             <Route index element={<DrugCategories />} />
           </Route>

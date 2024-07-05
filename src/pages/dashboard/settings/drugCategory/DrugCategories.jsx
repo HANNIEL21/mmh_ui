@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Table from '../../../../components/Table';
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
+import AddDrugCategory from './AddDrugCategory';
+import axios from 'axios';
+import { baseUrl } from '../../../../utils/constant';
+import EditDrugCategory from './EditDrugCategory';
+import DeleteDrugCategory from './DeleteDrugCategory';
 
 
 const DrugCategories = () => {
@@ -9,6 +14,25 @@ const DrugCategories = () => {
     const [isOpenEditModal, setIsOpenEditModal] = useState(false);
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
+    const [drugCategory, setDrugCategory] = useState([]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`${baseUrl}/drug_category.php`);
+                setDrugCategory(res.data.data);
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fetchData();
+
+        setTimeout(() => {
+            fetchData();
+        }, 120000);
+    }, []);
 
     const openModal = (modalName, id) => {
         switch (modalName) {
@@ -79,7 +103,7 @@ const DrugCategories = () => {
                                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                    {/* <EditNurse closeEditModal={() => closeModal("edit")} id={selectedId} /> */}
+                                    <EditDrugCategory closeEditModal={() => closeModal("edit")} id={selectedId} />
                                 </div>
                             </div>
                         </div>
@@ -104,7 +128,7 @@ const DrugCategories = () => {
                                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                    {/* <DeleteNurse closeDeleteModal={() => closeModal("delete")} id={selectedId} /> */}
+                                    <DeleteDrugCategory closeDeleteModal={() => closeModal("delete")} id={selectedId} />
                                 </div>
                             </div>
                         </div>
@@ -114,9 +138,6 @@ const DrugCategories = () => {
         },
     ];
 
-    const data = [
-        { id: 1, category: "anti-biotics" }
-    ]
 
     return (
         <div>
@@ -124,14 +145,14 @@ const DrugCategories = () => {
                 showFilter
                 label={columns}
                 filter={"category"}
-                data={data}
+                data={drugCategory}
                 children={
                     <>
                         <button
                             onClick={() => openModal("add")}
                             className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md px-3 py-1 focus:outline-none"
                         >
-                            <MdAdd className='text-white' /> <p>Add Nurse</p>
+                            <MdAdd className='text-white' /> <p>Add Category</p>
                         </button>
 
                         {isOpenAddModal && (
@@ -142,7 +163,7 @@ const DrugCategories = () => {
                                     </div>
                                     <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                                     <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                                        {/* <AddNurse closeAddModal={() => closeModal("add")} /> */}
+                                        <AddDrugCategory closeAddModal={() => closeModal("add")} />
                                     </div>
                                 </div>
                             </div>

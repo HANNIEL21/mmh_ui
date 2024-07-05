@@ -24,13 +24,6 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
     : [];
 
   const subHeaderComponentMemo = React.useMemo(() => {
-    const handleClear = () => {
-      if (filterText) {
-        setResetPaginationToggle(!resetPaginationToggle);
-        setFilterText('');
-      }
-    };
-
     return (
       <div className='w-full flex items-center justify-between'>
         {showFilter
@@ -70,7 +63,6 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
 
     return result;
   }
-
 
   function downloadCSV(array) {
     if (!array.length) {
@@ -126,7 +118,7 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
   return (
     <DataTable
       responsive
-      title={<p className='uppercase text-3xl font-bold'>{title}</p>}
+      title={title ? <p className='uppercase text-3xl font-bold'>{title}</p> : null}
       columns={label}
       data={filteredItems}
       pagination
