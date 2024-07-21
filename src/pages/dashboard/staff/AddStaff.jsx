@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { MdOutlineAdd } from 'react-icons/md';
 
-const AddPatient = ({ closeAddModal }) => {
+const AddStaff = ({ closeAddModal }) => {
     const [formData, setFormData] = useState({
         category: '',
     });
@@ -40,7 +40,7 @@ const AddPatient = ({ closeAddModal }) => {
                         <MdOutlineAdd className='text-green-500 text-base' />
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 className="text-lg mt-2 leading-6 font-bold uppercase text-slate-800" id="modal-title">Add Doctor</h3>
+                        <h3 className="text-lg mt-2 leading-6 font-bold uppercase text-slate-800" id="modal-title">Add Staff</h3>
                         <form className="flex flex-col gap-4 mt-3">
                             <div className="grid grid-cols- md:grid-cols-2 gap-4 mt-3">
                                 <div className="w-full">
@@ -208,5 +208,5 @@ const AddPatient = ({ closeAddModal }) => {
     );
 }
 
-export default AddPatient;
+export default AddStaff;
 

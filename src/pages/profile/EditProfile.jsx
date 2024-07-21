@@ -141,7 +141,7 @@ const EditProfile = () => {
                         </select>
                     </div>
                     <div className="w-full">
-                        <label className='font-bold capitalize text-sm text-slate-400'>Religion</label>
+                        <label className='font-bold capitalize text-sm text-slate-400'>Marital Status</label>
                         <select
                             name="marital_status"
                             id="marital_status"

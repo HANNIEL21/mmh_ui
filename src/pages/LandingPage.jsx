@@ -11,6 +11,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import 'animate.css';
 import doctor from "../assets/doctor.png";
+import background from "../assets/background.jfif";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -30,10 +31,13 @@ const LandingPage = () => {
     <div>
       <Header />
       <main className="h-full w-full overflow-hidden">
-        <section className=' md:p-20 py-10 h-[90vh] flex flex-col md:flex-row justify-center items-center'>
+        <section className=' md:p-20 py-10 h-[75vh] md:h-[90vh] flex flex-col md:flex-row justify-center items-center'>
           <div className='w-3/4 md:px-20'>
-            <p className='font-extrabold text-sm capitalize '>your health is our priority</p>
-            <h1 className='font-extrabold text-4xl md:text-6xl text-appColor'>We take care of your healthy health <FaHeartPulse className='text-7xl md:text-8xl inline animate__animated animate__pulse animate__infinite' /> </h1>
+            <div className='text-center'>
+              <p className='font-extrabold text-sm capitalize '>your health is our priority</p>
+              <h1 className='font-extrabold text-4xl md:text-6xl text-appColor capitalize'>We take care of your health <span className='hidden md:inline-flex'><FaHeartPulse className='text-7xl md:text-8xl inline animate__animated animate__pulse animate__infinite' /></span> </h1>
+              <span className='md:hidden text-appColor'><FaHeartPulse className='text-7xl md:text-8xl inline animate__animated animate__pulse animate__infinite' /></span>
+            </div>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5 mt-10'>
               <div className='flex gap-4 items-center'>
                 <div className='bg-appColor bg-opacity-40 text-appColor rounded-md p-2'><FaThumbsUp /></div>
@@ -58,7 +62,7 @@ const LandingPage = () => {
           </div>
         </section>
         {/* Services */}
-        <section className="bg-appColor bg-opacity-10 w-full flex flex-col lg:flex-row gap-10 rounded-3xl px-10 py-8  md:py-16">
+        <section id='services' className="bg-appColor bg-opacity-10 w-full flex flex-col lg:flex-row gap-10 rounded-3xl px-10 py-8  md:py-16">
           <div className="text-center flex flex-col items-center justify-center w-full lg:w-3/4">
             <p className="font-bold text-appColor capitalize">our services</p>
             <h2 className="font-extrabold text-3xl capitalize">comprehensive medical solution</h2>
@@ -103,7 +107,7 @@ const LandingPage = () => {
         </section>
 
         {/* About */}
-        <section className=" w-full flex md:p-20 p-10">
+        <section id='about' className=" w-full flex flex-col md:flex-row gap-14 md:p-20 p-10">
           <div className=" w-full md:w-4/12">
             <p className="font-bold text-appColor capitalize">about us</p>
             <h2 className="font-extrabold text-3xl capitalize my-5">welcome to Mercy Memorial Hospital (MMH)</h2>
@@ -114,13 +118,13 @@ const LandingPage = () => {
               We are dedicated to serving you and your loved ones with the highest standards of care and professionalism.
             </p>
           </div>
-          <div>
-
+          <div className='md:h-[60vh] w-full rounded-lg overflow-hidden'>
+              <img src={background} className='h-full w-full' alt="" />
           </div>
         </section>
 
         {/* Appointment */}
-        <section className="w-full flex flex-col md:flex-row items-center gap-10 p-10 md:p-20 bg-appColor rounded-3xl bg-opacity-10">
+        <section id='appointment' className="w-full flex flex-col md:flex-row items-center gap-10 p-10 md:p-20 bg-appColor rounded-3xl bg-opacity-10">
           <div className=" md:w-5/12">
             <p className="font-bold text-appColor capitalize">Book an Appointment</p>
             <h2 className="font-extrabold text-3xl capitalize my-5">How to Book an Appointment</h2>

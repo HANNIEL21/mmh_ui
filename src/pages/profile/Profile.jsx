@@ -9,9 +9,6 @@ const Profile = () => {
     const subLinks = [
         { name: "profile", to: "/profile", icon: "" },
         { name: "vital signs", to: "", icon: "" },
-        { name: "medical record", to: "", icon: "" },
-        { name: "medication", to: "", icon: "" },
-        { name: "lab test results", to: "", icon: "" },
         { name: "payment history", to: "", icon: "" },
         { name: "appointment history", to: "", icon: "" },
     ]

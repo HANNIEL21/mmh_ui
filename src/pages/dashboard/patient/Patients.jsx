@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import Table from '../../../components/Table';
 import AddPatient from './AddPatient';
@@ -77,25 +78,11 @@ const Patients = () => {
       name: 'ACTIONS',
       cell: row => (
         <div className='flex gap-4'>
-          <button
-            onClick={() => openModal("edit", row.id)}
-            className="border-2 border-green-700 hover:bg-green-300 text-white font-bold text-sm rounded-md px-1 py-1 focus:outline-none"
-          >
-            <MdEdit className='text-xl text-green-700' />
-          </button>
-          {isOpenEditModal && selectedId === row.id && (
-            <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-              <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-                  <div className="absolute inset-0 bg-slate-500 opacity-40"></div>
-                </div>
-                <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                  <EditPatient closeEditModal={() => closeModal("edit")} id={selectedId} />
-                </div>
-              </div>
-            </div>
-          )}
+          <Link to={`/dashboard/patients/edit/${row.id}`}>
+            <button className="border-2 border-green-700 hover:bg-green-300 text-white font-bold text-sm rounded-md px-1 py-1 focus:outline-none">
+              <MdEdit className='text-xl text-green-700' />
+            </button>
+          </Link>
           <button
             onClick={() => openModal("delete", row.id)}
             className="border-2 border-red-700 hover:bg-red-300 text-white font-bold text-sm rounded-md px-1 py-1 focus:outline-none"
@@ -110,7 +97,7 @@ const Patients = () => {
                 </div>
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                  <DeletePatient closeDeleteModal={() => closeModal("delete")} qId={selectedId} />
+                  <DeletePatient closeDeleteModal={() => closeModal("delete")} id={selectedId} />
                 </div>
               </div>
             </div>

@@ -8,16 +8,16 @@ const Appointment = () => {
     return (
         <div className='w-full'>
             <Header />
-            <section className="px-20 h-[88vh] w-full flex flex-col md:flex-row items-center justify-around">
+            <section className="px-10 md:px-20 h-[75vh] md:h-[90vh] w-full flex flex-col-reverse md:flex-row items-center justify-center md:justify-around gap-5 md:gap-0">
                 <div className=" md:w-2/4 flex flex-col gap-5">
                     <h1 className="capitalize w-full text-appColor text-4xl md:text-5xl font-bold">book your doctor appointment online</h1>
-                    <p>a healthier tomorrow starts today, schedule your wellness appointment today!</p>
+                    <p className='capitalize text-lg md:w-2/4'>a healthier tomorrow starts today, schedule your wellness appointment today!</p>
                     <div className="flex gap-5 items-center">
-                        <a href='#form' className="bg-white p-2 rounded-md text-appColor font-bold uppercase">book an appointment</a>
+                        <a href='#form' className="bg-appColor p-2 rounded-md  text-white font-bold uppercase">book an appointment</a>
                         <button className="border-2 border-appColor p-2 rounded-md text-appColor font-bold uppercase">call now</button>
                     </div>
                 </div>
-                <div className="hidden md:block">
+                <div className="">
                     <img src={stethoscope} alt="stethoscope image" />
                 </div>
             </section>

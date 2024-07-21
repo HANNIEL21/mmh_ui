@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import Table from '../../../components/Table';
-import AddDoctor from './AddDoctor';
-import DeleteDoctor from './DeleteDoctor';
-import EditDoctor from './EditDoctor';
+import AddStaff from './AddStaff';
+import DeleteStaff from './DeleteStaff';
+import EditStaff from './EditStaff';
 import { baseUrl } from '../../../utils/constant';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { setDoctors } from '../../../redux/Features/Dashboard';
 
-const Doctors = () => {
+const Staffs = () => {
   const dispatch = useDispatch();
+  
   const { doctors } = useSelector((state) => state.dashboard);
 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const res = await axios.get(`${baseUrl}/doctors.php`);
+        const res = await axios.get(`${baseUrl}/staffs.php`);
         dispatch(setDoctors(res.data.data));
         console.log(res.data);
       } catch (error) {
@@ -79,8 +80,8 @@ const Doctors = () => {
       sortable: true,
     },
     {
-      name: 'AGE',
-      selector: row => row.age,
+      name: 'ROLE',
+      selector: row => row.role ,
       sortable: true,
     },
     {
@@ -91,11 +92,6 @@ const Doctors = () => {
     {
       name: 'Address',
       selector: row => row.address,
-      sortable: true,
-    },
-    {
-      name: 'REF',
-      selector: row => row.ref,
       sortable: true,
     },
     {
@@ -126,7 +122,7 @@ const Doctors = () => {
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                  <EditDoctor closeEditModal={() => closeModal("edit")} id={selectedId} />
+                  <EditStaff closeEditModal={() => closeModal("edit")} id={selectedId} />
                 </div>
               </div>
             </div>
@@ -151,7 +147,7 @@ const Doctors = () => {
                 <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                 <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                  <DeleteDoctor closeDeleteModal={() => closeModal("delete")} id={selectedId} />
+                  <DeleteStaff closeDeleteModal={() => closeModal("delete")} id={selectedId} />
                 </div>
               </div>
             </div>
@@ -166,9 +162,10 @@ const Doctors = () => {
   return (
     <main className='w-full h-full bg-white rounded-lg shadow-md p-4'>
       <Table
-        title="Doctors"
+        title="Staffs"
         label={columns}
-        filter={"firstname"}
+        filter={"firstname"} 
+        showFilter={true}
         data={doctors}
         children={
           <>
@@ -187,7 +184,7 @@ const Doctors = () => {
                   </div>
                   <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
                   <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                    <AddDoctor closeAddModal={() => closeModal("add")} />
+                    <AddStaff closeAddModal={() => closeModal("add")} />
                   </div>
                 </div>
               </div>
@@ -199,4 +196,4 @@ const Doctors = () => {
   );
 }
 
-export default Doctors;
+export default Staffs;

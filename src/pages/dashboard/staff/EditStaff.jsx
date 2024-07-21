@@ -4,7 +4,7 @@ import { MdEdit } from 'react-icons/md';
 import Alert from '../../../components/Alert';
 import { baseUrl, gender, occupations, religion, role } from '../../../utils/constant';
 
-const EditDoctor = ({ id, closeEditModal }) => {
+const EditStaff = ({ id, closeEditModal }) => {
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
@@ -32,7 +32,7 @@ const EditDoctor = ({ id, closeEditModal }) => {
             setError(null);
 
             try {
-                const response = await axios.get(`${baseUrl}/doctors.php?id=${id}`);
+                const response = await axios.get(`${baseUrl}/staffs.php?id=${id}`);
                 console.log(response);
                 if (response.status === 200) {
                     const data = response.data.data;
@@ -70,7 +70,7 @@ const EditDoctor = ({ id, closeEditModal }) => {
             setLoading(true);
             setError(null);
 
-            const response = await axios.put(`${baseUrl}/patients.php?id=${id}`, formData);
+            const response = await axios.put(`${baseUrl}/staffs.php?id=${id}`, formData);
             console.log(response);
 
 
@@ -101,7 +101,7 @@ const EditDoctor = ({ id, closeEditModal }) => {
                         <MdEdit className='text-green-500 text-sm' />
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900 uppercase" id="modal-title">Edit Doctor</h3>
+                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900 uppercase" id="modal-title">Edit Staff</h3>
                         <form className="flex flex-col gap-4 mt-3">
                             <div className="grid grid-cols- md:grid-cols-2 gap-4 mt-3">
                                 <div className="w-full">
@@ -257,8 +257,8 @@ const EditDoctor = ({ id, closeEditModal }) => {
                                 <div className="w-full">
                                     <input
                                         type="text"
-                                        name="pnok"
-                                        id="pnok"
+                                        name="pnnok"
+                                        id="pnnok"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                         placeholder="Phone Number Of Next Of Kin"
                                         value={formData.pnnok}
@@ -303,5 +303,5 @@ const EditDoctor = ({ id, closeEditModal }) => {
     );
 }
 
-export default EditDoctor;
+export default EditStaff;
 

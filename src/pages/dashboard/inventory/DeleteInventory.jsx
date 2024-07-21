@@ -2,24 +2,29 @@ import React from 'react';
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
+import Alert from '../../../components/Alert';
 
-const DeletePatient = ({ closeDeleteModal, id }) => {
+const DeleteInventory = ({ closeDeleteModal, qId }) => {
 
     const handleDelete = async (id) => {
         try {
             console.log(id);
             // Send a DELETE request to your backend endpoint with the user ID
-            const response = await axios.delete(`${baseUrl}/question.php?id=${id}`);
-            if (response.status === 200) {
+            const res = await axios.delete(`${baseUrl}/inventory.php?id=${id}`);
+            console.log(res);
+            if (res.data.status === "success") {
                 // User deleted successfully
-                console.log(response.data);
+                Alert(res.data.status, res.data.message);
+                console.log(res.data);
             } else {
                 // Failed to delete user
-                console.error('Failed to delete user:', response.statusText);
+                Alert(res.data.status, res.data.message);
+                console.error('Failed to delete item:', res.data.message);
             }
         } catch (error) {
             // An error occurred while deleting user
-            console.error('An error occurred while deleting user:', error.message);
+            Alert("error", error.message);
+            console.error('An error occurred while deleting item:', error.message);
         } finally {
             // Close the delete user modal regardless of the outcome
             closeDeleteModal();
@@ -34,27 +39,25 @@ const DeletePatient = ({ closeDeleteModal, id }) => {
                         <MdDelete className='text-red-500 text-sm' />
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900" id="modal-title">Delete Patient</h3>
+                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900" id="modal-title">Delete Product</h3>
 
                         <div className="flex items-center justify-center text-base my-5">
-                            <p>Are you sure you want to delete this Patient?</p>
+                            <p>Are you sure you want to delete this Product?</p>
                         </div>
-
                     </div>
                 </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" onClick={() => handleDelete(id)} className="mt-3 ms-3 w-full inline-flex justify-center rounded-md border border-red-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-red-700 hover:bg-red-300 focus:outline-none  sm:mt-0 sm:w-auto sm:text-sm">
+                <button type="button" onClick={() => handleDelete(qId)} className="mt-3 ms-3 w-full inline-flex justify-center rounded-md border border-red-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-red-700 hover:bg-red-300 focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
                     Delete
                 </button>
 
-                <button type="button" onClick={closeDeleteModal} className="mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none  sm:mt-0 sm:w-auto sm:text-sm">
+                <button type="button" onClick={closeDeleteModal} className="mt-3 w-full inline-flex justify-center rounded-md border shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none sm:mt-0 sm:w-auto sm:text-sm">
                     Cancel
                 </button>
-
             </div>
         </div>
     )
 }
 
-export default DeletePatient;
+export default DeleteInventory;

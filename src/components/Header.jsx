@@ -5,6 +5,7 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from "../redux/Features/User";
 import Alert from "./Alert";
+import { IoHome, IoLogIn, IoCloudDownloadSharp } from "react-icons/io5";
 
 export default function Header() {
     const navigate = useNavigate();
@@ -37,25 +38,22 @@ export default function Header() {
     };
 
     const renderSidebarLinks = () => {
-        const links = data.role === "ADMIN" || data.role === "DOCTOR" || data.role === "NURSE"
+        const links = data.role === "PATIENT"
             ? [
+                { path: "/", label: "Home" },
+                { path: "/profile", label: "Profile" },
+                { path: "/dashboard/about", label: "About" },
+                { path: "/dashboard/services", label: "Services" },
+            ] : [
                 { path: "/", label: "Home" },
                 { path: "/profile", label: "Profile" },
                 { path: "/dashboard", label: "Dashboard" },
                 { path: "/appointment", label: "Appointment" },
                 { path: "/dashboard/services", label: "Services" },
-                { path: "/dashboard/contact", label: "Contact" },
-            ]
-            : [
-                { path: "/", label: "Home" },
-                { path: "/profile", label: "Profile" },
-                { path: "/dashboard/about", label: "About" },
-                { path: "/dashboard/services", label: "Services" },
-                { path: "/dashboard/contact", label: "Contact" },
             ];
 
         return links.map(link => (
-            <li className="mb-2" key={link.path}>
+            <li className="mb-2 font-bold hover:font-extrabold hover:text-appColor" key={link.path}>
                 <Link to={link.path}>{link.label}</Link>
             </li>
         ));
@@ -109,9 +107,12 @@ export default function Header() {
                     </nav>
                     {data?.role ? (
                         <nav>
-                            <div onClick={handleSidebarToggle} className="h-10 w-10 bg-appColor rounded-full flex items-center justify-center uppercase font-bold cursor-pointer">
-                                {data.firstname?.charAt(0) + data.lastname?.charAt(0)}
-                            </div>
+                            <button onClick={handleSidebarToggle} className="flex gap-2 items-center border border-appColor p-1 px-2 rounded-xl">
+                                <div className="h-10 w-10 bg-appColor  text-white rounded-full flex items-center justify-center uppercase font-bold cursor-pointer">
+                                    {data.firstname?.charAt(0) + data.lastname?.charAt(0)}
+                                </div>
+                                <p className="font-bold text-sm">{data?.role}</p>
+                            </button>
                             {sidebarOpen && (
                                 <div id="sidebar-overlay" className="w-full h-[93vh] absolute left-0" onClick={handleCloseSidebar}>
                                     <div className="w-[300px] h-full bg-white absolute shadow-md right-0 p-4">
@@ -134,15 +135,15 @@ export default function Header() {
                             <IoMenu className="text-3xl text-appColor" />
                         </button>
                         {menuOpen && (
-                            <div className="h-screen w-screen absolute top-0 left-0 bg-white p-5">
-                                <div className="flex items-center justify-end">
-                                    <button onClick={handleOpenMenu}>
-                                        <IoClose className="text-3xl text-appColor" />
-                                    </button>
-                                </div>
-                                <div className="h-full w-full flex flex-col justify-center items-center gap-5">
-                                    <Link className="capitalize font-bold text-appColor" to="/appointment">Book Appointment</Link>
-                                    <Link className="capitalize font-bold text-appColor" to="/auth/login">Login</Link>
+                            <div className="h-[85vh] w-[100%] absolute top-0 left-0 flex flex-col items-center justify-center bg-white">
+                                <button onClick={handleOpenMenu} className="absolute top-5 right-5">
+                                    <IoClose className="text-3xl text-appColor" />
+                                </button>
+                                <div className="flex flex-col gap-4">
+                                    <Link onClick={handleOpenMenu} className="capitalize font-bold bg-appColor text-white rounded-lg p-2 flex gap-2 items-center justify-center" to="/appointment">Book Appointment</Link>
+                                    <Link onClick={handleOpenMenu} className="capitalize font-bold bg-appColor text-white rounded-lg p-2 flex gap-2 items-center justify-center" to="/"><IoHome  /> Home</Link>
+                                    <Link onClick={handleOpenMenu} className="capitalize font-bold bg-appColor text-white rounded-lg p-2 flex gap-2 items-center justify-center" to="/appointment"><IoCloudDownloadSharp /> Download</Link>
+                                    <Link onClick={handleOpenMenu} className="capitalize font-bold bg-appColor text-white rounded-lg p-2 flex gap-2 items-center justify-center" to="/auth/login"><IoLogIn />Login</Link>
                                 </div>
                             </div>
                         )}

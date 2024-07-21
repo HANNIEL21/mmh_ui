@@ -3,13 +3,14 @@ export const baseUrl = "http://localhost/api";
 
 export const role = [
     "ADMIN",
+    "ICT",
     "PATIENT",
     "NURSE",
     "DOCTOR",
     "ACCOUNTANT",
     "RECEPTIONIST",
     "PHARMACIST",
-    "LABORATORY TECHNICIAN"
+    "LABORATORY SCIENTIST",
 ]
 
 export const gender =  [
@@ -79,11 +80,12 @@ export const occupations = [
     "Mathematician",
     "Mechanic",
     "Medical Assistant",
+    "Med Lab",      
     "Military Personnel",
     "Musician",
     "Nurse",
     "Nutritionist",
-    "Painter",
+    "Painter",  
     "Paramedic",
     "Pharmacist",
     "Photographer",

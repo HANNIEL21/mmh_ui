@@ -79,14 +79,14 @@ const Login = () => {
                         <div className="grid grid-cols-2 gap-5">
                             <input
                                 type="text"
-                                className="border-2 border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] rounded-lg font-semibold capitalize p-2"
+                                className="border-2 border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] rounded-lg font-semibold p-2"
                                 placeholder="Email Address"
                                 name="email"
                                 onChange={(e) => dispatch(setEmail(e.target.value))}
                             />
                             <input
-                                type="text"
-                                className="border-2 border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] rounded-lg font-semibold capitalize p-2"
+                                type="password"
+                                className="border-2 border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] rounded-lg font-semibold p-2"
                                 placeholder="Password"
                                 name="password"
                                 onChange={(e) => dispatch(setPassword(e.target.value))}

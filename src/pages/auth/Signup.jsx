@@ -76,12 +76,12 @@ const Signup = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-5">
-              <input type="text" name="firstname" id="firstname" onChange={handleChange} className="border-2 rounded-lg font-semibold capitalize border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="First name" />
-              <input type="text" name="lastname" id="lastname" onChange={handleChange} className="border-2 rounded-lg font-semibold capitalize border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="last name" />
-              <input type="text" name="phone" id="phone" onChange={handleChange} className="border-2 rounded-lg font-semibold capitalize border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="phone number" />
-              <input type="text" name="email" id="email" onChange={handleChange} className="border-2 rounded-lg font-semibold capitalize border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="Email Address" />
-              <input type="text" name="password" id="password" onChange={handleChange} className="border-2 rounded-lg font-semibold capitalize border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="Password" />
-              <input type="text" name="confirm_password" onChange={handleChange} id="confirm_password" className="border-2 rounded-lg font-semibold capitalize border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="Confirm Password" />
+              <input type="text" name="firstname" id="firstname" onChange={handleChange} className="border-2 rounded-lg font-semibold border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="First name" />
+              <input type="text" name="lastname" id="lastname" onChange={handleChange} className="border-2 rounded-lg font-semibold border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="last name" />
+              <input type="tel" name="phone" id="phone" onChange={handleChange} className="border-2 rounded-lg font-semibold border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="phone number" />
+              <input type="email" name="email" id="email" onChange={handleChange} className="border-2 rounded-lg font-semibold border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="Email Address" />
+              <input type="password" name="password" id="password" onChange={handleChange} className="border-2 rounded-lg font-semibold border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="Password" />
+              <input type="password" name="confirm_password" onChange={handleChange} id="confirm_password" className="border-2 rounded-lg font-semibold border-[#8F1E63] text-[#8F1E63] focus:outline-none placeholder:text-[#8F1E63] p-2" placeholder="Confirm Password" />
             </div>
             <button type="button" onClick={save} className=" flex justify-center items-center gap-1 font-bold capitalize text-white bg-[#8F1E63] w-full p-2 rounded-md">create account</button>
 

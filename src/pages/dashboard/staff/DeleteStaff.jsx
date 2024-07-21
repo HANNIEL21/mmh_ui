@@ -2,24 +2,28 @@ import React from 'react';
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
+import Alert from '../../../components/Alert';
 
-const DeletePatient = ({ closeDeleteModal, id }) => {
+const DeleteStaff = ({ closeDeleteModal, id }) => {
 
     const handleDelete = async (id) => {
         try {
             console.log(id);
             // Send a DELETE request to your backend endpoint with the user ID
-            const response = await axios.delete(`${baseUrl}/question.php?id=${id}`);
+            const response = await axios.delete(`${baseUrl}/staffs.php?id=${id}`);
             if (response.status === 200) {
                 // User deleted successfully
+                Alert(response.data.status, response.data.message)
                 console.log(response.data);
             } else {
                 // Failed to delete user
-                console.error('Failed to delete user:', response.statusText);
+                Alert(response.data.status, response.data.message)
+                console.error('Failed to delete staff:', response.statusText);
             }
         } catch (error) {
             // An error occurred while deleting user
-            console.error('An error occurred while deleting user:', error.message);
+            Alert("error", error.message)
+            console.error('An error occurred while deleting staff:', error.message);
         } finally {
             // Close the delete user modal regardless of the outcome
             closeDeleteModal();
@@ -34,10 +38,10 @@ const DeletePatient = ({ closeDeleteModal, id }) => {
                         <MdDelete className='text-red-500 text-sm' />
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900" id="modal-title">Delete Patient</h3>
+                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900" id="modal-title">Delete Staff</h3>
 
                         <div className="flex items-center justify-center text-base my-5">
-                            <p>Are you sure you want to delete this Patient?</p>
+                            <p>Are you sure you want to delete this Staff?</p>
                         </div>
 
                     </div>
@@ -57,4 +61,4 @@ const DeletePatient = ({ closeDeleteModal, id }) => {
     )
 }
 
-export default DeletePatient;
+export default DeleteStaff;
