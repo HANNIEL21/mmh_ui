@@ -34,6 +34,7 @@ const Records = () => {
                   <div className=' h-10 w-10 p-3 bg-slate-200'></div>
                   <div>
                     <p className='truncate'>{patient.firstname} {patient.lastname}</p>
+                    <p className='truncate'>{patient.ref}</p>
                     <p className='text-sm'>{patient.created_at}</p>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
-// export const baseUrl = "https://bethesdamercymemorial.com/api";
-export const baseUrl = "http://localhost/api";
+// export const baseUrl = "https://bethesdamercymemorial.com/server/api";
+export const baseUrl = "http://localhost/mmh_backend/api";
 
 export const role = [
     "ADMIN",

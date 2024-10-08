@@ -1,51 +1,67 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { MdOutlineAdd } from 'react-icons/md';
-// import { baseApiUrl } from '../../../utils/constants';
-// import { categories, subjects, types } from '../../../engine_config';
+import { baseUrl } from '../../../utils/constant';
+import Alert from '../../../components/Alert';
+import Loader from '../../../components/Loader';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAppointments } from '../../../redux/Features/Dashboard';
 
 const AddAppointment = ({ closeAddModal }) => {
+    const dispatch = useDispatch();
+    const appointments = useSelector((state) => state.dashboard.appointments); // Get current appointments
+
     const [formData, setFormData] = useState({
-        question: '',
-        course: '',
-        mark: '',
-        opt1: '',
-        opt2: '',
-        opt3: '',
-        opt4: '',
-        opt5: '',
-        answer: '',
         type: '',
-        category: ''
+        ref: '',
+        date: '',
+        time: '',
+        firstname: '',
+        lastname: '',
+        note: '',
     });
+
+    const [loading, setLoading] = useState(false);
+    const [alert, setAlert] = useState({ message: '', type: '' });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
             ...prevState,
-            [name]: value
+            [name]: value,
         }));
     };
 
-    // const save = async () => {
-    //     try {
-    //         console.log(formData);
-    //         // Save the question
-    //         const questionResponse = await axios.post(`${baseApiUrl}/question.php`, formData);
+    const save = async () => {
+        setLoading(true);
+        try {
+            console.log(formData);
+            const res = await axios.post(`${baseUrl}/appointment.php`, formData);
 
-    //         if (questionResponse.status === 200) {
-    //             console.log('Question saved successfully');
-    //             closeAddModal();
-    //         } else {
-    //             console.error('Failed to save question:', questionResponse.statusText);
-    //         }
-    //     } catch (error) {
-    //         console.error('An error occurred while saving question', error.message);
-    //     }
-    // };
+            if (res.status === 201) {
+                const newAppointment = res.data?.data;
+                
+                // Update the appointments list in the Redux store
+                const updatedAppointments = [...appointments, newAppointment];
+                dispatch(setAppointments(updatedAppointments));
+
+                Alert("success", "Appointment Created");
+            } else {
+                Alert("error", "Failed to create appointment");
+            }
+        } catch (error) {
+            console.error('An error occurred while saving the appointment:', error.message);
+            Alert("error", "An error occurred. Please try again.");
+        } finally {
+            setLoading(false);
+            closeAddModal();
+        }
+    };
 
     return (
         <div>
+            {loading && <Loader />} {/* Display loader when loading */}
+
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -55,30 +71,6 @@ const AddAppointment = ({ closeAddModal }) => {
                         <h3 className="text-lg mt-2 leading-6 font-bold uppercase text-slate-800" id="modal-title">Add Appointment</h3>
                         <form className="flex flex-col gap-4 mt-3">
                             <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-3">
-                                <div className="w-full">
-                                    <label htmlFor="category" className="sr-only">Service</label>
-                                    <select
-                                        name="category"
-                                        id="category"
-                                        className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
-                                        onChange={handleChange}
-                                    >
-                                        <option value="">SERVICE</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
-                                    </select>
-                                </div>
-                                <div className="w-full">
-                                    <label htmlFor="examtype" className="sr-only">Doctor</label>
-                                    <select
-                                        name="type"
-                                        id="type"
-                                        className="border-2 focus:border-blue-500 block w-full text-gray-400 sm:text-sm p-2 border-slate-300 rounded-md"
-                                        onChange={handleChange}
-                                    >
-                                        <option value="">DOCTOR</option>
-                                        {/* {types.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
-                                    </select>
-                                </div>
                                 <div className="w-full">
                                     <input
                                         type="text"
@@ -105,7 +97,7 @@ const AddAppointment = ({ closeAddModal }) => {
                                         name="date"
                                         id="date"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
-                                        placeholder="First Name"
+                                        placeholder="Date"
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -115,7 +107,30 @@ const AddAppointment = ({ closeAddModal }) => {
                                         name="time"
                                         id="time"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
-                                        placeholder="First Name"
+                                        placeholder="Time"
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="w-full">
+                                    <label htmlFor="type" className="sr-only">TYPE</label>
+                                    <select
+                                        name="type"
+                                        id="type"
+                                        className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
+                                        onChange={handleChange}
+                                    >
+                                        <option value="">TYPE</option>
+                                        <option value="IN-PERSON">IN-PERSON</option>
+                                        <option value="VIRTUAL">VIRTUAL</option>
+                                    </select>
+                                </div>
+                                <div className="w-full">
+                                    <input
+                                        type="text"
+                                        name="ref"
+                                        id="ref"
+                                        className="border-2 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
+                                        placeholder="REF"
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -126,26 +141,34 @@ const AddAppointment = ({ closeAddModal }) => {
                                     name="note"
                                     id="note"
                                     className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
-                                    placeholder="Note..."
+                                    placeholder="REASON FOR APPOINTMENT..."
                                     onChange={handleChange}
                                 ></textarea>
                             </div>
 
                         </form>
-
                     </div>
                 </div>
             </div>
+
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" onClick={() => { }} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-green-300 text-base font-medium text-green-700 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                <button
+                    type="button"
+                    onClick={save}
+                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-green-300 text-base font-medium text-green-700 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
                     Save
                 </button>
-                <button type="button" onClick={closeAddModal} className="mt-3 w-full inline-flex justify-center rounded-md border  shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none  sm:mt-0 sm:w-auto sm:text-sm">
+                <button
+                    type="button"
+                    onClick={closeAddModal}
+                    className="mt-3 w-full inline-flex justify-center rounded-md border  shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none  sm:mt-0 sm:w-auto sm:text-sm"
+                >
                     Cancel
                 </button>
             </div>
         </div>
     );
-}
+};
 
 export default AddAppointment;

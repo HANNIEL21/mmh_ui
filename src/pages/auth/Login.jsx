@@ -28,11 +28,9 @@ const Login = () => {
         }
     
         try {
-            const res = await axios.get(`${baseUrl}/auth.php`, {
-                params: {
-                    email: auth.email,
-                    password: auth.password,
-                }
+            const res = await axios.post(`${baseUrl}/auth.php?action=login`, {
+                email: auth.email,
+                password: auth.password,
             });
     
             console.log(res);

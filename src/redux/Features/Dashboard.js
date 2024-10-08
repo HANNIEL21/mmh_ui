@@ -2,6 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    appointments: [],
     patients: [],
     doctors: [],
     nurses: [],
@@ -16,12 +17,16 @@ export const dashboardSlice = createSlice({
     initialState,
     reducers: {
         clearState: (state) => {
+            state.appointments = [];
             state.patients = [];
             state.doctors = [];
             state.nurses = [];
             state.payments = [];
             state.records = [];
             return state;
+        },
+        setAppointments: (state, { payload }) => {
+            state.appointments = payload;
         },
         setPatients: (state, { payload }) => {
             state.patients = payload;
@@ -48,6 +53,7 @@ export const dashboardSlice = createSlice({
 });
 
 export const {
+    setAppointments,
     setDoctors,
     setNurses,
     setPatients,
