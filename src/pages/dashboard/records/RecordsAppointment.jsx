@@ -14,21 +14,39 @@ const RecordsAppointment = () => {
 
   const { patient } = useParams();
   const [data, setData] = useState({});
+  const [appointment, setAppointment] = useState({});
 
   console.log(patient);
-  
+
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await axios.get(`${baseUrl}/appointment.php?id=${patient.ref}`);
-      if (res.status === 200) {
-        dispatch(setAppointments(res.data?.data));
-      } else {
-        console.error('Failed to fetch appointments');
+    const fetchData = async () => {
+      try {
+        const patientRes = await axios.get(`${baseUrl}/patients.php?id=${patient}`);
+        const patientData = patientRes.data?.data;
+        setData(patientData);
+
+        console.log(patientData?.ref);  // Log ref from patient data
+
+        // Only proceed if patientData has a reference (ref)
+        if (patientData?.ref) {
+          const appointmentRes = await axios.get(`${baseUrl}/appointment.php?ref=${patientData.ref}`);
+          console.log(appointmentRes);
+
+          if (appointmentRes.status === 200) {
+            setAppointment(appointmentRes.data?.data)
+          } else {
+            console.error('Failed to fetch appointments');
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
       }
     };
-    fetch();
-  }, [dispatch]);
+
+    fetchData();
+  }, [dispatch, patient]);
+
 
 
   const columns = [
@@ -75,10 +93,11 @@ const RecordsAppointment = () => {
     <main className='w-full h-full px-5 py-3 flex gap-5'>
       <section className="bg-white w-full h-full rounded-lg px-5">
         <Table
+          title={"Appointments"}
           label={columns}
           filter={"code"}
           showFilter={false}
-          data={appointments}
+          data={appointment}
         />
       </section>
     </main>
