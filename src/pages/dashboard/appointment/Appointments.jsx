@@ -140,9 +140,6 @@ const Appointments = () => {
     },
   ];
 
-  const upcomingAppointments = appointments?.filter((appointment) => new Date(appointment.date) >= new Date());
-  const pastAppointments = appointments?.filter((appointment) => new Date(appointment.date) < new Date());
-
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(`${baseUrl}/appointment.php`);
@@ -154,6 +151,39 @@ const Appointments = () => {
     };
     fetch();
   }, [dispatch]);
+
+  console.log(appointments);
+
+
+  const isTodayOrAfter = (dateString) => {
+    const appointmentDate = new Date(dateString);
+    const today = new Date();
+
+    // Set the time of "today" to 00:00:00 to only compare dates, not times
+    today.setHours(0, 0, 0, 0);
+
+    return appointmentDate >= today;
+  };
+
+  const upcomingAndTodayAppointments = Array.isArray(appointments)
+    ? appointments.filter((appointment) => isTodayOrAfter(appointment.date))
+    : [];
+
+  const isPast = (dateString) => {
+    const appointmentDate = new Date(dateString);
+    const today = new Date();
+
+    // Set the time of "today" to 00:00:00 to only compare dates, not times
+    today.setHours(0, 0, 0, 0);
+
+    return appointmentDate < today;
+  };
+
+  const pastAppointments = Array.isArray(appointments)
+    ? appointments.filter((appointment) => isPast(appointment.date))
+    : [];
+
+
 
   return (
     <main className='w-full h-full px-5 py-3 flex gap-5'>
@@ -197,8 +227,8 @@ const Appointments = () => {
             <h3 className="font-bold text-white ">Upcoming Appointments</h3>
           </div>
           <div className='p-2 flex flex-col gap-1 overflow-auto'>
-            {upcomingAppointments?.length > 0 ? (
-              upcomingAppointments.map((appointment) => (
+            {upcomingAndTodayAppointments?.length > 0 ? (
+              upcomingAndTodayAppointments.map((appointment) => (
                 <div key={appointment.id} className="p-2 rounded-md bg-appColor bg-opacity-20 flex items-center justify-between">
                   <p className='font-bold capitalize'>{appointment.firstname} {appointment.lastname}</p>
                   <p>{appointment.date} at {appointment.time}</p>
