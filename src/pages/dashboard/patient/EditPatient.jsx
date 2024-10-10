@@ -109,7 +109,7 @@ const EditPatient = () => {
                                 id="firstname"
                                 className="border-2 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="First Name"
-                                value={formData.firstname}
+                                value={formData?.firstname || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -121,7 +121,7 @@ const EditPatient = () => {
                                 id="lastname"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Last Name"
-                                value={formData.lastname}
+                                value={formData?.lastname || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -133,7 +133,7 @@ const EditPatient = () => {
                                 id="phone"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Phone Number"
-                                value={formData.phone}
+                                value={formData?.phone || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -145,7 +145,7 @@ const EditPatient = () => {
                                 id="email"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Email"
-                                value={formData.email}
+                                value={formData?.email || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -157,7 +157,7 @@ const EditPatient = () => {
                                 id="age"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Age"
-                                value={formData.age}
+                                value={formData?.age || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -169,7 +169,7 @@ const EditPatient = () => {
                                 id="ref"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Reference Number"
-                                value={formData.ref}
+                                value={formData?.ref || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -180,7 +180,7 @@ const EditPatient = () => {
                                 id="marital_status"
                                 className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
                                 onChange={handleChange}
-                                value={formData.marital_status}
+                                value={formData?.marital_status || ""}
                             >
                                 <option value="">MARITAL STATUS</option>
                                 {/* Replace with your actual marital status options */}
@@ -196,7 +196,7 @@ const EditPatient = () => {
                                 name="gender"
                                 id="gender"
                                 className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
-                                value={formData.gender}
+                                value={formData?.gender || ""}
                                 onChange={handleChange}
                             >
                                 <option value="">GENDER</option>
@@ -212,7 +212,7 @@ const EditPatient = () => {
                                 id="religion"
                                 className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
                                 onChange={handleChange}
-                                value={formData.religion}
+                                value={formData?.religion || ""}
                             >
                                 <option value="">SELECT RELIGION</option>
                                 {religion.map((item, i) => (
@@ -227,7 +227,7 @@ const EditPatient = () => {
                                 id="occupation"
                                 className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
                                 onChange={handleChange}
-                                value={formData.occupation}
+                                value={formData?.occupation || ""}
                             >
                                 <option value="">OCCUPATION</option>
                                 {occupations.map((item, i) => (
@@ -242,7 +242,7 @@ const EditPatient = () => {
                                 id="role"
                                 className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
                                 onChange={handleChange}
-                                value={formData.role}
+                                value={formData?.role || ""}
                             >
                                 <option value="">ROLE</option>
                                 {role.map((item, i) => (
@@ -257,7 +257,7 @@ const EditPatient = () => {
                                 id="status"
                                 className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
                                 onChange={handleChange}
-                                value={formData.status}
+                                value={formData?.status || ""}
                             >
                                 <option value="">STATUS</option>
                                 <option value="IN_PATIENT">IN_PATIENT</option>
@@ -273,7 +273,7 @@ const EditPatient = () => {
                                 id="fnnok"
                                 className="border-2 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="First Name Of Next Of Kin"
-                                value={formData.fnnok}
+                                value={formData?.fnnok || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -285,7 +285,7 @@ const EditPatient = () => {
                                 id="lnnok"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Last Name Of Next Of Kin"
-                                value={formData.lnnok}
+                                value={formData?.lnnok || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -297,7 +297,7 @@ const EditPatient = () => {
                                 id="pnnok"
                                 className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                 placeholder="Phone Number Of Next Of Kin"
-                                value={formData.pnnok}
+                                value={formData?.pnnok || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -308,7 +308,7 @@ const EditPatient = () => {
                             id="address"
                             className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                             placeholder="ADDRESS"
-                            value={formData.address}
+                            value={formData?.address|| ""}
                             onChange={handleChange}
                         ></textarea>
                     </div>
@@ -318,7 +318,7 @@ const EditPatient = () => {
                             id="anok"
                             className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                             placeholder="ADDRESS OF NEXT OF KIN"
-                            value={formData.anok}
+                            value={formData?.anok || ""}
                             onChange={handleChange}
                         ></textarea>
                     </div>
