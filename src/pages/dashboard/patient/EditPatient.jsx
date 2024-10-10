@@ -5,14 +5,16 @@ import Alert from '../../../components/Alert';
 import { baseUrl, gender, occupations, religion, role } from '../../../utils/constant';
 import { useParams } from 'react-router-dom';
 
-const EditPatient = () => {  
-    const {id} = useParams();
+const EditPatient = () => {
+    const { id } = useParams();
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
         age: '',
         gender: '',
         email: '',
+        ref: '',
+        status: '',
         role: '',
         address: '',
         occupation: '',
@@ -100,6 +102,7 @@ const EditPatient = () => {
                 <form className="flex flex-col gap-4 mt-3">
                     <div className="grid grid-cols- md:grid-cols-4 gap-4 mt-3">
                         <div className="w-full">
+                            <label htmlFor="firstname" className='capitalize font-bold text-slate-400'>firstname</label>
                             <input
                                 type="text"
                                 name="firstname"
@@ -111,6 +114,7 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
+                            <label htmlFor="lastname" className='capitalize font-bold text-slate-400'>lastname</label>
                             <input
                                 type="text"
                                 name="lastname"
@@ -122,6 +126,7 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
+                            <label htmlFor="phone" className='capitalize font-bold text-slate-400'>phone number</label>
                             <input
                                 type="text"
                                 name="phone"
@@ -133,6 +138,7 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
+                            <label htmlFor="email" className='capitalize font-bold text-slate-400'>email</label>
                             <input
                                 type="text"
                                 name="email"
@@ -144,6 +150,7 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
+                            <label htmlFor="age" className='capitalize font-bold text-slate-400'>age</label>
                             <input
                                 type="text"
                                 name="age"
@@ -155,7 +162,19 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
-                            <label htmlFor="marital_status" className="sr-only">Marital Status</label>
+                            <label htmlFor="ref" className='capitalize font-bold text-slate-400'>reference nummber</label>
+                            <input
+                                type="text"
+                                name="ref"
+                                id="ref"
+                                className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
+                                placeholder="Reference Number"
+                                value={formData.ref}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="w-full">
+                            <label htmlFor="marital_status" className='capitalize font-bold text-slate-400'>marital status</label>
                             <select
                                 name="marital_status"
                                 id="marital_status"
@@ -172,7 +191,7 @@ const EditPatient = () => {
                             </select>
                         </div>
                         <div className="w-full">
-                            <label htmlFor="gender" className="sr-only">Gender</label>
+                            <label htmlFor="gender" className='capitalize font-bold text-slate-400'>gender</label>
                             <select
                                 name="gender"
                                 id="gender"
@@ -187,7 +206,7 @@ const EditPatient = () => {
                             </select>
                         </div>
                         <div className="w-full">
-                            <label htmlFor="religion" className="sr-only">Religion</label>
+                            <label htmlFor="religion" className='capitalize font-bold text-slate-400'>religion</label>
                             <select
                                 name="religion"
                                 id="religion"
@@ -202,7 +221,7 @@ const EditPatient = () => {
                             </select>
                         </div>
                         <div className="w-full">
-                            <label htmlFor="occupation" className="sr-only">Occupation</label>
+                            <label htmlFor="occupation" className='capitalize font-bold text-slate-400'>occupation</label>
                             <select
                                 name="occupation"
                                 id="occupation"
@@ -217,7 +236,7 @@ const EditPatient = () => {
                             </select>
                         </div>
                         <div className="w-full">
-                            <label htmlFor="role" className="sr-only">Role</label>
+                            <label htmlFor="role" className='capitalize font-bold text-slate-400'>role</label>
                             <select
                                 name="role"
                                 id="role"
@@ -232,6 +251,22 @@ const EditPatient = () => {
                             </select>
                         </div>
                         <div className="w-full">
+                            <label htmlFor="status" className='capitalize font-bold text-slate-400'>status</label>
+                            <select
+                                name="status"
+                                id="status"
+                                className="border-2 focus:border-blue-500 block w-full sm:text-sm p-2 text-gray-400 border-slate-300 rounded-md"
+                                onChange={handleChange}
+                                value={formData.status}
+                            >
+                                <option value="">STATUS</option>
+                                <option value="IN_PATIENT">IN_PATIENT</option>
+                                <option value="OUT_PATIENT">OUT_PATIENT</option>
+                                
+                            </select>
+                        </div>
+                        <div className="w-full">
+                            <label htmlFor="fnnok" className='capitalize font-bold text-slate-400'>firstname of N.O.K</label>
                             <input
                                 type="text"
                                 name="fnnok"
@@ -243,6 +278,7 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
+                            <label htmlFor="lnnok" className='capitalize font-bold text-slate-400'>lastname of N.O.K</label>
                             <input
                                 type="text"
                                 name="lnnok"
@@ -254,6 +290,7 @@ const EditPatient = () => {
                             />
                         </div>
                         <div className="w-full">
+                            <label htmlFor="pnnok" className='capitalize font-bold text-slate-400'>phone number of N.O.K</label>
                             <input
                                 type="text"
                                 name="pnnok"

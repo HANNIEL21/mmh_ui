@@ -51,11 +51,6 @@ const RecordsAppointment = () => {
 
   const columns = [
     {
-      name: 'ID',
-      selector: row => row.id,
-      sortable: true,
-    },
-    {
       name: 'FULL NAME',
       selector: row => `${row.firstname} ${row.lastname}`,
       sortable: true,
