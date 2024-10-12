@@ -2,26 +2,26 @@ import React from 'react';
 import { MdDelete } from "react-icons/md";
 import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
+import Alert from '../../../components/Alert';
 
 const DeletePatient = ({ closeDeleteModal, id }) => {
 
     const handleDelete = async (id) => {
         try {
             console.log(id);
-            // Send a DELETE request to your backend endpoint with the user ID
-            const response = await axios.delete(`${baseUrl}/question.php?id=${id}`);
-            if (response.status === 200) {
-                // User deleted successfully
-                console.log(response.data);
+            const res = await axios.delete(`${baseUrl}/patients.php?id=${id}`);
+            if (res.status === 200) {
+                console.log(res.data);
+                Alert("success", "Patient deleted successfully");
+
             } else {
-                // Failed to delete user
-                console.error('Failed to delete user:', response.statusText);
+                Alert("error", "Failed to deleted patient");
+                console.log(res);
             }
         } catch (error) {
-            // An error occurred while deleting user
+            Alert("error", "Network Error");
             console.error('An error occurred while deleting user:', error.message);
         } finally {
-            // Close the delete user modal regardless of the outcome
             closeDeleteModal();
         }
     };

@@ -9,21 +9,23 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
 
   const filteredItems = Array.isArray(data)
     ? data.filter(item => {
-      // Check if item[filter] exists and is a string
       if (typeof item[filter] !== 'string') {
-        return false; // Exclude items where the specified property is not a string
+        return false;
       }
 
-      // Convert filter text and item property value to lowercase for case-insensitive filtering
       const filterTextLower = filterText.toLowerCase();
       const itemValueLower = item[filter].toLowerCase();
-
-      // Filter items based on the specified property and filter text
       return itemValueLower.includes(filterTextLower);
     })
     : [];
 
+  // Conditionally display subHeaderComponent
   const subHeaderComponentMemo = React.useMemo(() => {
+    // Check if the filter should be shown or if there are children
+    if (!showFilter && (!children || children.length === 0)) {
+      return null;
+    }
+
     return (
       <div className='w-full flex items-center justify-between'>
         {showFilter
@@ -37,7 +39,6 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
     );
   }, [filterText, resetPaginationToggle, children, showFilter]);
 
-  // EXPORT SELECTED ROW
   function convertArrayOfObjectsToCSV(array) {
     let result;
 
@@ -53,9 +54,7 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
       let ctr = 0;
       keys.forEach(key => {
         if (ctr > 0) result += columnDelimiter;
-
         result += item[key];
-
         ctr++;
       });
       result += lineDelimiter;
@@ -89,9 +88,6 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
     setSelectedRows(state.selectedRows);
   }, []);
 
-
-  // DELETE SELECTED ROW
-
   function deleteSelected(array) {
     array.forEach(item => {
       console.log(item);
@@ -115,6 +111,28 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
     </div>
   ), [selectedRows]);
 
+  const customStyles = {
+    rows: {
+      style: {
+        minHeight: '30px', // Reduce the row height
+        padding: '2px 1px', // Reduce padding around the row content
+      },
+    },
+    headCells: {
+      style: {
+        paddingLeft: '8px',
+        paddingRight: '8px',
+        fontWeight: "bold",
+      },
+    },
+    cells: {
+      style: {
+        paddingTop: '8px',
+        paddingBottom: '8px',
+      },
+    },
+  };
+
   return (
     <DataTable
       responsive
@@ -123,12 +141,13 @@ const Table = ({ label, data, filter, children, title, showFilter }) => {
       data={filteredItems}
       pagination
       striped
-      subHeader
+      subHeader={!!subHeaderComponentMemo}
       subHeaderComponent={subHeaderComponentMemo}
       resetPaginationToggle={resetPaginationToggle}
       selectableRows
       contextActions={selectedComponentMemo}
       onSelectedRowsChange={handleRowSelected}
+      customStyles={customStyles}
     />
   );
 };

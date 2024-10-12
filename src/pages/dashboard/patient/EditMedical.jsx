@@ -32,7 +32,7 @@ const EditMedical = () => {
                 const response = await axios.get(`${baseUrl}/vitals.php?id=${id}`);
                 console.log(response.data);
 
-                if (response.data.status === "success") {
+                if (response.status === 200) {
                     const data = response.data.data;
                     setFormData(data);
                 } else {
@@ -60,14 +60,14 @@ const EditMedical = () => {
     };
 
     const save = async (id) => {
+        console.log(formData);
         try {
             setLoading(true);
             setError(null);
 
             const response = await axios.put(`${baseUrl}/vitals.php?id=${id}`, formData);
-            console.log(response);
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 if (response.data.status === "success") {
                     Alert("success", "Patient update was successful");
                 } else {
