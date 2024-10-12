@@ -32,7 +32,7 @@ const EditStaff = ({ id, closeEditModal }) => {
             setError(null);
 
             try {
-                const response = await axios.get(`${baseUrl}/staffs.php?id=${id}`);
+                const response = await axios.get(`${baseUrl}/staff.php?id=${id}`);
                 console.log(response);
                 if (response.status === 200) {
                     const data = response.data.data;
@@ -64,32 +64,26 @@ const EditStaff = ({ id, closeEditModal }) => {
     };
 
     const save = async (id) => {
-
-
         try {
             setLoading(true);
             setError(null);
 
-            const response = await axios.put(`${baseUrl}/staffs.php?id=${id}`, formData);
+            const response = await axios.put(`${baseUrl}/staff.php?id=${id}`, formData);
             console.log(response);
 
 
             if (response.status === 200) {
-                // User updated successfully
-                if (response.data.status === "success") {
-                    Alert("success", "Question update was successful");
-                }
-                closeEditModal();
+                Alert("success", "Update Successful");
+
             } else {
-                setError('Failed to update question');
-                Alert("error", "Failed to update question");
+                Alert("error", "Update Failed");
             }
         } catch (error) {
             console.log(error);
-            setError('An error occurred while updating question');
-            Alert("error", "An error occurred while updating question");
+            Alert("error", "Network Error");
         } finally {
             setLoading(false);
+            closeEditModal();
         }
     };
 

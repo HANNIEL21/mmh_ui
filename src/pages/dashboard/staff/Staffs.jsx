@@ -7,25 +7,27 @@ import EditStaff from './EditStaff';
 import { baseUrl } from '../../../utils/constant';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
-import { setDoctors } from '../../../redux/Features/Dashboard';
+import { setStaffs } from '../../../redux/Features/Dashboard';
 
 const Staffs = () => {
   const dispatch = useDispatch();
   
-  const { doctors } = useSelector((state) => state.dashboard);
+  const { staffs } = useSelector((state) => state.dashboard);
 
   useEffect(() => {
-    const fetchPatients = async () => {
+    const fetchStaffs = async () => {
       try {
-        const res = await axios.get(`${baseUrl}/staffs.php`);
-        dispatch(setDoctors(res.data.data));
+        const res = await axios.get(`${baseUrl}/staff.php`);
+        console.log(res);
+        
+        dispatch(setStaffs(res.data.data));
         console.log(res.data);
       } catch (error) {
-        console.error("Error fetching patients:", error);
+        console.error("Error fetching staffs:", error);
       }
     };
 
-    fetchPatients();
+    fetchStaffs();
   }, [dispatch]);
 
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
@@ -95,11 +97,6 @@ const Staffs = () => {
       sortable: true,
     },
     {
-      name: 'STATUS',
-      selector: row => row.status,
-      sortable: true,
-    },
-    {
       name: 'ACTIONS',
       cell: row => <div className='flex gap-4'>
         <>
@@ -166,14 +163,14 @@ const Staffs = () => {
         label={columns}
         filter={"firstname"} 
         showFilter={true}
-        data={doctors}
+        data={staffs}
         children={
           <>
             <button
               onClick={() => openModal("add")}
               className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md px-3 py-1 focus:outline-none"
             >
-              <MdAdd className='text-white' /> <p>Add Doctor</p>
+              <MdAdd className='text-white' /> <p>Add Staff</p>
             </button>
 
             {isOpenAddModal && (
