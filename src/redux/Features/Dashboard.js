@@ -6,6 +6,7 @@ const initialState = {
     patients: [],
     doctors: [],
     staffs: [],
+    results: [],
     payments: [],
     records: [],
     isLoading: true,
@@ -21,6 +22,7 @@ export const dashboardSlice = createSlice({
             state.patients = [];
             state.doctors = [];
             state.staffs = [];
+            state.results = [];
             state.payments = [];
             state.records = [];
             return state;
@@ -36,6 +38,9 @@ export const dashboardSlice = createSlice({
         },
         setStaffs: (state, { payload }) => {
             state.staffs = payload;
+        },
+        setResults: (state, { payload }) => {
+            state.results = payload;
         },
         setPayments: (state, { payload }) => {
             state.payments = payload;
@@ -56,6 +61,7 @@ export const {
     setAppointments,
     setDoctors,
     setStaffs,
+    setResults,
     setPatients,
     setPayments,
     setRecords,

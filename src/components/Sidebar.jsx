@@ -32,7 +32,7 @@ export default function Sidebar() {
         { name: "Patients", href: "/dashboard/patients", icon: <FaUserInjured /> },
         { name: "nurses", href: "/dashboard/nurses", icon: <FaUserNurse /> },
         { name: "records", href: "/dashboard/records", icon: <FaFileMedical /> },
-        { name: "investigation", href: "/dashboard/investigation", icon: <FaUserDoctor /> },
+        { name: "consultation", href: "/dashboard/consultation", icon: <FaUserDoctor /> },
     ];
 
     const nurseLinks = [
@@ -56,8 +56,8 @@ export default function Sidebar() {
     const labLinks = [
         { name: "dashboard", href: "/dashboard", icon: <BsGrid1X2Fill /> },
         { name: "calendar", href: "/dashboard/calendar", icon: <FaCalendarDays /> },
-        { name: "investigation", href: "/dashboard/doctors", icon: <FaUserDoctor /> },
-        { name: "patient results", href: "/dashboard/nurses", icon: <FaUserInjured /> },
+        { name: "investigation", href: "/dashboard/investigation", icon: <FaUserDoctor /> },
+        { name: "lab results", href: "/dashboard/results", icon: <FaUserInjured /> },
         { name: "records", href: "/dashboard/records", icon: <FaFileMedical /> },
     ];
 

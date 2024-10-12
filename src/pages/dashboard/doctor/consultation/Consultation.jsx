@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Investigation = () => {
+const Consultation = () => {
     return (
         <div className='p-5'>
             <form action="" className='grid grid-cols-2 gap-10'>
@@ -19,4 +19,4 @@ const Investigation = () => {
     )
 }
 
-export default Investigation;
+export default Consultation;

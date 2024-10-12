@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
 import Table from '../../../components/Table';
 import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAppointments } from '../../../redux/Features/Dashboard';
 import { useParams } from 'react-router-dom';
 
 
 const RecordsAppointment = () => {
   const dispatch = useDispatch();
-  const { appointments } = useSelector((state) => state.dashboard);
 
   const { patient } = useParams();
   const [data, setData] = useState({});

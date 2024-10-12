@@ -26,13 +26,14 @@ import RecordsMedical from './pages/dashboard/records/RecordsMedical';
 import RecordsPayment from './pages/dashboard/records/RecordsPayment';
 import RecordsLab from './pages/dashboard/records/RecordsLab';
 import RecordsAppointment from './pages/dashboard/records/RecordsAppointment';
-import Investigation from './pages/dashboard/nurse/investigation/Investigation';
-import PatientsRoot from './pages/dashboard/patient/EditRoot';
+import Consultation from './pages/dashboard/doctor/consultation/Consultation';
 import EditPatient from './pages/dashboard/patient/EditPatient';
 import EditRoot from './pages/dashboard/patient/EditRoot';
 import EditMedical from './pages/dashboard/patient/EditMedical';
 import Remark from './pages/dashboard/remark/Remark';
 import Pharmacy from './pages/dashboard/pharmacy/Pharmacy';
+import LabResults from './pages/dashboard/result/LabResults';
+import Investigation from './pages/dashboard/lab/Investigation';
 
 
 function App() {
@@ -59,7 +60,7 @@ function App() {
             <Route path='/dashboard/patients/edit/:id/vitals' element={<EditMedical />} />
           </Route>
           <Route path='/dashboard/staffs' element={<Staffs />} />
-          <Route path='/dashboard/investigation' element={<Investigation />} />
+          <Route path='/dashboard/consultation' element={<Consultation />} />
           <Route path='/dashboard/remark' element={<Remark />} />
           <Route path='/dashboard/records' element={<Records />} />
           <Route path='/dashboard/records/:patient' element={<RecordsDetails />} >
@@ -71,6 +72,8 @@ function App() {
           </Route>
           <Route path='/dashboard/payments' element={<Payments />} />
           <Route path='/dashboard/pharmacy' element={<Pharmacy />} />
+          <Route path='/dashboard/investigation' element={<Investigation />} />
+          <Route path='/dashboard/results' element={<LabResults />} />
           <Route path='/dashboard/inventory' element={<Inventory />} />
           <Route path='/dashboard/inventory/:category' element={<InventoryDetails />} />
           <Route path='/dashboard/settings' element={<Settings />}>
