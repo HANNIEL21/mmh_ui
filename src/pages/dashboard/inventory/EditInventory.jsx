@@ -10,9 +10,12 @@ const EditInventory = ({ id, closeEditModal }) => {
     const [formData, setFormData] = useState({
         product: '',
         price: '',
-        category: category,
+        unit: '',
+        expiry: '',
+        category: '',
         quantity: '',
     });
+
     const [loading, setLoading] = useState(false);
     const [cate, setCate] = useState([]);
     const [error, setError] = useState(null);
@@ -23,16 +26,13 @@ const EditInventory = ({ id, closeEditModal }) => {
         const fetchCategory = async () => {
             try {
                 const res = await axios.get(`${baseUrl}/drug_category.php`);
-                if (res.data.status === "success") {
+                console.log(res);
+                if (res.status === 200) {
                     const data = res.data.data;
-                    console.log(data);
-
                     setCate(data);
-                    console.log(cate);
-
                 } else {
-                    Alert("error", "Failed to fetch question data");
-                    setError('Failed to fetch question data');
+                    Alert("error", "Failed to fetch category data");
+                    setError('Failed to fetch category data');
                 }
             } catch (error) {
                 console.log(error);
@@ -44,20 +44,20 @@ const EditInventory = ({ id, closeEditModal }) => {
             setError(null);
 
             try {
-                const response = await axios.get(`${baseUrl}/inventory.php?id=${id}`);
+                const res = await axios.get(`${baseUrl}/inventory.php?id=${id}`);
+                console.log(res);
 
-                if (response.data.status === "success") {
-                    const data = response.data.data;
-                    console.log(data);
+                if (res.status === 200) {
+                    const data = res.data.data;
                     setFormData(data);
                 } else {
-                    Alert("error", "Failed to fetch question data");
-                    setError('Failed to fetch question data');
+                    Alert("error", "Failed to fetch product data");
+                    setError('Failed to fetch product data');
                 }
             } catch (error) {
                 console.log(error);
-                Alert("error", "An error occurred while fetching question data");
-                setError('An error occurred while fetching question data');
+                Alert("error", "An error occurred while fetching product data");
+                setError('An error occurred while fetching product data');
             } finally {
                 setLoading(false);
             }
@@ -144,6 +144,28 @@ const EditInventory = ({ id, closeEditModal }) => {
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                         placeholder="Quantity"
                                         value={formData.quantity}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="w-full">
+                                    <input
+                                        type="text"
+                                        name="unit"
+                                        id="unit"
+                                        className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
+                                        placeholder="Unit"
+                                        value={formData.unit}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div className="w-full">
+                                    <input
+                                        type="date"
+                                        name="expiry"
+                                        id="expiry"
+                                        className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
+                                        placeholder="Expiry"
+                                        value={formData.expiry}
                                         onChange={handleChange}
                                     />
                                 </div>
