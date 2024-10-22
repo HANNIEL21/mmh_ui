@@ -18,10 +18,10 @@ const Staffs = () => {
     const fetchStaffs = async () => {
       try {
         const res = await axios.get(`${baseUrl}/staff.php`);
-        console.log(res);
-        
-        dispatch(setStaffs(res.data.data));
-        console.log(res.data);
+        console.log(res.data.data);
+        if(res.status === 200){
+          dispatch(setStaffs(res.data.data));
+        }
       } catch (error) {
         console.error("Error fetching staffs:", error);
       }
@@ -157,11 +157,11 @@ const Staffs = () => {
 
 
   return (
-    <main className='w-full h-full bg-white rounded-lg shadow-md p-4'>
+    <main className='w-full h-full bg-white rounded-lg shadow-md p-4 overflow-auto'>
       <Table
         title="Staffs"
         label={columns}
-        filter={"firstname"} 
+        filter={"firstname"}
         showFilter={true}
         data={staffs}
         children={

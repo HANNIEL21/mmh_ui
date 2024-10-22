@@ -108,7 +108,7 @@ const Patients = () => {
   ];
 
   return (
-    <main className='w-full h-full bg-white rounded-lg shadow-md p-4'>
+    <main className='w-full h-full bg-white rounded-lg shadow-md p-4 overflow-auto'>
       <Table
         title="Patients"
         label={columns}

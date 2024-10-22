@@ -34,6 +34,7 @@ import Remark from './pages/dashboard/remark/Remark';
 import Pharmacy from './pages/dashboard/pharmacy/Pharmacy';
 import LabResults from './pages/dashboard/result/LabResults';
 import Investigation from './pages/dashboard/lab/Investigation';
+import Prescription from './pages/dashboard/doctor/consultation/Prescription';
 
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
           </Route>
           <Route path='/dashboard/staffs' element={<Staffs />} />
           <Route path='/dashboard/consultation' element={<Consultation />} />
+          <Route path='/dashboard/prescription' element={<Prescription />} />
           <Route path='/dashboard/remark' element={<Remark />} />
           <Route path='/dashboard/records' element={<Records />} />
           <Route path='/dashboard/records/:patient' element={<RecordsDetails />} >
