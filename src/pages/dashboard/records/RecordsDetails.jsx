@@ -34,7 +34,7 @@ const RecordsDetails = () => {
 
   return (
     <div className='w-full '>
-      <header className='w-full flex items-center gap-10 mb-6'>
+      <header className='w-full flex flex-col md:flex-row md:items-center gap-10 mb-6'>
         <Link to="/dashboard/records">
           <button className='bg-white p-1 rounded-md'>
             <IoArrowBack size={20} className='text-appColor' />
@@ -48,14 +48,14 @@ const RecordsDetails = () => {
           </div>
         </div>
       </header>
-      <div className='w-full border-b border-slate-400 flex items-center justify-around'>
+      <div className='w-full border-b border-slate-400 flex items-center justify-around gap-2 overflow-auto shadow-md'>
         {
           subLinks.map((link, i) => (
             <Link
               key={i}
               to={link.to}
               onClick={() => setActive(link.to)}
-              className={`capitalize text-sm p-1 ${active === link.to ? 'text-slate-500 border-slate-500 border-b-2 font-extrabold' : 'text-slate-400 font-extrabold'}`}
+              className={`capitalize text-nowrap text-sm p-1 ${active === link.to ? 'text-slate-500 border-slate-500 border-b-2 font-extrabold' : 'text-slate-400 font-extrabold'}`}
             >
               {link.name}
             </Link>

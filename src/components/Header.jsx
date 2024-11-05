@@ -109,20 +109,20 @@ export default function Header() {
 
                     <nav className="">
                         {data?.role ? (
-                            <div className="hidden md:flex items-center gap-4" onClick={handleOpenMenu}>
+                            <div className="hidden lg:flex items-center gap-4" onClick={handleOpenMenu}>
                                 <div className="h-10 w-10 bg-appColor  text-white rounded-full flex items-center justify-center uppercase font-bold cursor-pointer">
                                     {data.firstname?.charAt(0) + data.lastname?.charAt(0)}
                                 </div>
                                 <p className="font-bold text-sm">{data?.role}</p>
                             </div>
                         ) : (
-                            <nav className="hidden md:flex gap-2 items-center justify-end">
+                            <nav className="hidden lg:flex gap-2 items-center justify-end">
                                 <button onClick={() => navigate("/appointment")} className="border-2 border-[#8F1E63] rounded-md bg-[#8F1E63] text-white p-2 uppercase font-semibold text-sm">book appointment</button>
                                 <button type="button" onClick={() => navigate("/auth/login")} className="border-2 border-[#8F1E63] rounded-md text-[#8F1E63] p-2 uppercase font-semibold text-sm">login</button>
                             </nav>
                         )}
 
-                        <button className="md:hidden" onClick={handleOpenMenu}>
+                        <button className="lg:hidden" onClick={handleOpenMenu}>
                             <IoMenu className="text-3xl text-appColor" />
                         </button>
                         {menuOpen && (

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Table from '../../../components/Table';
 import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Table from '../../../components/Table';
 
 
 const RecordsAppointment = () => {
@@ -11,9 +11,9 @@ const RecordsAppointment = () => {
 
   const { patient } = useParams();
   const [data, setData] = useState({});
-  const [appointment, setAppointment] = useState({});
+  const [appointment, setAppointment] = useState([]);
 
-  console.log(patient);
+  console.log(appointment);
 
 
   useEffect(() => {
@@ -82,14 +82,13 @@ const RecordsAppointment = () => {
 
 
   return (
-    <main className='w-full h-full px-5 py-3 flex gap-5'>
+    <main className='w-full h-full lg:px-5 py-3 flex gap-5 overflow-auto'>
       <section className="bg-white w-full h-full rounded-lg px-5">
         <Table
-          title={"Appointments"}
-          label={columns}
-          filter={"code"}
-          showFilter={false}
+          title={"Appointment"}
+          columns={columns}
           data={appointment}
+          filter={true}
         />
       </section>
     </main>

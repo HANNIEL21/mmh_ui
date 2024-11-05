@@ -4,6 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 const Settings = () => {
     const subLinks = [
         { name: 'Drug Categories', link: '/settings/drugCatrgories' },
+        { name: 'Reset', link: '/settings/drugCatrgories' },
     ]
     return (
         <div className='bg-white h-full p-5 flex flex-col gap-4 rounded-xl'>
@@ -16,7 +17,7 @@ const Settings = () => {
                     ))
                 }
             </div>
-            <div>
+            <div className='overflow-auto'>
                 <Outlet />
             </div>
         </div>

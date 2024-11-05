@@ -10,8 +10,8 @@ const RecordsLab = () => {
   const dispatch = useDispatch();
 
   const { patient } = useParams();
-  const [data, setData] = useState({});
-  const [result, setResult] = useState({});
+  const [data, setData] = useState([]);
+  const [result, setResult] = useState([]);
 
   console.log(patient);
 
@@ -72,13 +72,12 @@ const RecordsLab = () => {
 
 
   return (
-    <main className='w-full h-full px-5 py-3 flex gap-5'>
+    <main className='w-full h-full md:px-5 py-3 flex gap-5 overflow-auto'>
       <section className="bg-white w-full h-full rounded-lg px-5">
         <Table
           title={"Results"}
-          label={columns}
-          filter={"ref"}
-          showFilter={false}
+          columns={columns}
+          filter={true}
           data={result}
         />
       </section>

@@ -25,15 +25,15 @@ const Records = () => {
 
   return (
     <div>
-      <div className='grid grid-cols-6 gap-4'>
+      <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4'>
         {
           patients.map((patient) => (
-            <Link to={`/dashboard/records/${patient.id}`}>
-              <div key={patient.id} className='shadow-md w-4/4 p-2 bg-white rounded-md'>
+            <Link key={patient.id} to={`/dashboard/records/${patient.id}`}>
+              <div className='shadow-md w-4/4 p-2 bg-white rounded-md'>
                 <div className='flex items-center gap-4'>
                   <div className=' h-10 w-10 p-3 bg-slate-200'></div>
                   <div>
-                    <p className='truncate'>{patient.firstname} {patient.lastname}</p>
+                    <p className='truncate '>{patient.firstname.toUpperCase()} {patient.lastname.toUpperCase()}</p>
                     <p className='truncate'>{patient.ref}</p>
                     <p className='text-sm'>{patient.created_at}</p>
                   </div>

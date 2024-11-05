@@ -111,16 +111,16 @@ const Patients = () => {
     <main className='w-full h-full bg-white rounded-lg shadow-md p-4 overflow-auto'>
       <Table
         title="Patients"
-        label={columns}
-        filter={"firstname"}
+        columns={columns}
+        filter={true}
         data={patients}
         children={
           <>
             <button
               onClick={() => openModal("add")}
-              className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md px-3 py-1 focus:outline-none"
+              className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md p-1 focus:outline-none"
             >
-              <MdAdd className='text-white' /> <p>Add Patient</p>
+              <MdAdd className='text-white text-3xl' />
             </button>
             {isOpenAddModal && (
               <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">

@@ -4,7 +4,7 @@ import { MdOutlineAdd } from 'react-icons/md';
 import { baseUrl } from '../../../utils/constant';
 import Alert from '../../../components/Alert';
 
-const AddInventory = ({ inventory }) => {
+const AddInventory = ({ inventory, closeModal }) => {
 
     const [formData, setFormData] = useState({
         product: '',
@@ -66,9 +66,9 @@ const AddInventory = ({ inventory }) => {
                 <div className="w-full mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
 
                     <form className="w-full flex flex-col gap-4 mt-3">
-                        <div className="grid grid-cols-2 gap-4 mt-3">
+                        <div className="grid md:grid-cols-2 gap-4 mt-3">
                             <div className="w-full">
-                                <label htmlFor="product" className='capitalize font-bold text-slate-400'>product</label>
+                                <label htmlFor="product" className='hidden lg:flex capitalize font-bold text-slate-400'>product</label>
                                 <input
                                     type="text"
                                     name="product"
@@ -80,7 +80,7 @@ const AddInventory = ({ inventory }) => {
                                 />
                             </div>
                             <div className="w-full">
-                                <label htmlFor="price" className='capitalize font-bold text-slate-400'>price</label>
+                                <label htmlFor="price" className='hidden lg:flex capitalize font-bold text-slate-400'>price</label>
                                 <input
                                     type="number"
                                     name="price"
@@ -92,7 +92,7 @@ const AddInventory = ({ inventory }) => {
                                 />
                             </div>
                             <div className="w-full">
-                                <label htmlFor="quantity" className='capitalize font-bold text-slate-400'>quantity</label>
+                                <label htmlFor="quantity" className='hidden lg:flex capitalize font-bold text-slate-400'>quantity</label>
                                 <input
                                     type="number"
                                     name="quantity"
@@ -104,7 +104,7 @@ const AddInventory = ({ inventory }) => {
                                 />
                             </div>
                             <div className="w-full">
-                                <label htmlFor="unit" className='capitalize font-bold text-slate-400'>unit</label>
+                                <label htmlFor="unit" className='hidden lg:flex capitalize font-bold text-slate-400'>unit</label>
                                 <input
                                     type="text"
                                     name="unit"
@@ -116,7 +116,7 @@ const AddInventory = ({ inventory }) => {
                                 />
                             </div>
                             <div className="w-full">
-                                <label htmlFor="expiry" className='capitalize font-bold text-slate-400'>expiry date</label>
+                                <label htmlFor="expiry" className='hidden lg:flex capitalize font-bold text-slate-400'>expiry date</label>
                                 <input
                                     type="date"
                                     name="expiry"
@@ -128,7 +128,7 @@ const AddInventory = ({ inventory }) => {
                                 />
                             </div>
                             <div className="w-full">
-                                <label htmlFor="category" className='capitalize font-bold text-slate-400'>category</label>
+                                <label htmlFor="category" className='hidden lg:flex capitalize font-bold text-slate-400'>category</label>
                                 <select
                                     name="category"
                                     id="category"
@@ -154,6 +154,9 @@ const AddInventory = ({ inventory }) => {
                     {
                         loading ? "Loading" : "Save"
                     }
+                </button>
+                <button type="button" onClick={closeModal} className="lg:hidden w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-gray-300 text-base font-medium ml-2 text-slate-700 hover:bg-slate-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    cancel
                 </button>
             </div>
         </div>

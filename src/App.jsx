@@ -9,7 +9,7 @@ import AuthOtp from './pages/auth/AuthOtp';
 import DashboardLayout from './pages/dashboard/DashboardLayout';
 import Overview from './pages/dashboard/Overview';
 import Appointments from './pages/dashboard/appointment/Appointments';
-import Calendar from './pages/dashboard/Calendar';
+import Calendar from './pages/dashboard/calender/Calendar';
 import Patients from './pages/dashboard/patient/Patients';
 import Staffs from './pages/dashboard/staff/Staffs';
 import Records from './pages/dashboard/records/Records';

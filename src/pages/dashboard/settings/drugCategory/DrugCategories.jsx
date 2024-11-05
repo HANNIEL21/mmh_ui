@@ -140,19 +140,18 @@ const DrugCategories = () => {
 
 
     return (
-        <div>
+        <div className='rounded-lg'>
             <Table
-                showFilter
-                label={columns}
-                filter={"category"}
+                columns={columns}
+                filter={true}
                 data={drugCategory}
                 children={
                     <>
                         <button
                             onClick={() => openModal("add")}
-                            className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md px-3 py-1 focus:outline-none"
+                            className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md p-1 focus:outline-none"
                         >
-                            <MdAdd className='text-white' /> <p>Add Category</p>
+                            <MdAdd className='text-white text-3xl' />
                         </button>
 
                         {isOpenAddModal && (

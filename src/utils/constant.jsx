@@ -12,7 +12,7 @@ export const role = [
     "PHARMACIST",
     "LABORATORY SCIENTIST",
 ]
-
+    
 export const gender = [
     "MALE",
     "FEMALE",
