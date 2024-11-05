@@ -1,5 +1,5 @@
-// export const baseUrl = "https://bethesdamercymemorial.com/server/api";
-export const baseUrl = "http://localhost/mmh_backend/api";
+export const baseUrl = "https://bethesdamercymemorial.com/server/api";
+// export const baseUrl = "http://localhost/mmh_backend/api";
 
 export const role = [
     "ADMIN",
@@ -12,7 +12,7 @@ export const role = [
     "PHARMACIST",
     "LABORATORY SCIENTIST",
 ]
-    
+
 export const gender = [
     "MALE",
     "FEMALE",
