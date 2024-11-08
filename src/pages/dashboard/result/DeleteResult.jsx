@@ -4,23 +4,23 @@ import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
 import Alert from '../../../components/Alert';
 
-const DeletePatient = ({ closeDeleteModal, id }) => {
+const DeleteResult = ({ closeDeleteModal, id }) => {
 
     const handleDelete = async (id) => {
         try {
             console.log(id);
-            const res = await axios.delete(`${baseUrl}/patients.php?id=${id}`);
-            if (res.status === 200) {
-                console.log(res.data);
-                Alert("success", "Patient deleted successfully");
+            const res = await axios.delete(`${baseUrl}/staff.php?id=${id}`);
+            console.log(res);
 
+            if (res.status === 200) {
+                Alert("success", "Staff Deleted");
             } else {
-                Alert("error", "Failed to deleted patient");
-                console.log(res);
+                console.error('Failed to delete staff:', res.statusText);
+                Alert("success", "Failed to delete staff");
             }
         } catch (error) {
-            Alert("error", "Network Error");
-            console.error('An error occurred while deleting user:', error.message);
+            Alert("success", "Network Error");
+            console.error('An error occurred while deleting staff:', error.message);
         } finally {
             closeDeleteModal();
         }
@@ -34,10 +34,10 @@ const DeletePatient = ({ closeDeleteModal, id }) => {
                         <MdDelete className='text-red-500 text-sm' />
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900" id="modal-title">Delete Patient</h3>
+                        <h3 className="text-lg mt-2 leading-6 font-medium text-gray-900" id="modal-title">Delete Staff</h3>
 
                         <div className="flex items-center justify-center text-base my-5">
-                            <p>Are you sure you want to delete this Patient?</p>
+                            <p>Are you sure you want to delete this Staff?</p>
                         </div>
 
                     </div>
@@ -57,4 +57,4 @@ const DeletePatient = ({ closeDeleteModal, id }) => {
     )
 }
 
-export default DeletePatient;
+export default DeleteResult;

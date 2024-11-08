@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { MdOutlineAdd } from 'react-icons/md';
-// import { baseApiUrl } from '../../../utils/constants';
-// import { categories, subjects, types } from '../../../engine_config';
+import { baseUrl, gender, occupations, religion } from '../../../utils/constant';
+import Alert from '../../../components/Alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPatients } from '../../../redux/Features/Dashboard';
 
 const AddPatient = ({ closeAddModal }) => {
+    const dispatch = useDispatch();
+    const patients = useSelector((state) => state.dashboard.patients);
+
     const [formData, setFormData] = useState({
         firstname: '',
         lastname: '',
         age: '',
         gender: '',
+        role: 'PATIENT',
         email: '',
         address: '',
         occupation: '',
@@ -18,9 +24,11 @@ const AddPatient = ({ closeAddModal }) => {
         religion: '',
         fnnok: '',
         lnnok: '',
-        pnok: '',
+        pnnok: '',
         anok: ''
     });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,22 +38,29 @@ const AddPatient = ({ closeAddModal }) => {
         }));
     };
 
-    // const save = async () => {
-    //     try {
-    //         console.log(formData);
-    //         // Save the question
-    //         const questionResponse = await axios.post(`${baseApiUrl}/question.php`, formData);
+    const save = async () => {
+        setLoading(true);
+        try {
+            console.log(formData);
+            const res = await axios.post(`${baseUrl}/patients.php`, formData);
 
-    //         if (questionResponse.status === 200) {
-    //             console.log('Question saved successfully');
-    //             closeAddModal();
-    //         } else {
-    //             console.error('Failed to save question:', questionResponse.statusText);
-    //         }
-    //     } catch (error) {
-    //         console.error('An error occurred while saving question', error.message);
-    //     }
-    // };
+            if (res.status === 201) {
+                const newPatient = res.data?.data;
+                const updatedPatients = [...patients, newPatient];
+                dispatch(setPatients(updatedPatients));
+                Alert("success", "Patient Created");
+            } else {
+                Alert("error", "Failed to create Created");
+                console.log(res);
+            }
+        } catch (error) {
+            Alert("error", "Network Error");
+            console.error('An error occurred while saving question', error.message);
+        } finally {
+            setLoading(false);
+            // closeAddModal();
+        }
+    };
 
     return (
         <div>
@@ -109,7 +124,6 @@ const AddPatient = ({ closeAddModal }) => {
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <label htmlFor="gender" className="sr-only">gender</label>
                                     <select
                                         name="marital_status"
                                         id="marital_status"
@@ -117,11 +131,13 @@ const AddPatient = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">MARITAL STATUS</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Widowed">Widowed</option>
                                     </select>
                                 </div>
                                 <div className="w-full">
-                                    <label htmlFor="gender" className="sr-only">gender</label>
                                     <select
                                         name="gender"
                                         id="gender"
@@ -129,11 +145,10 @@ const AddPatient = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">GENDER</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {gender.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
-                                    <label htmlFor="gender" className="sr-only">gender</label>
                                     <select
                                         name="religion"
                                         id="religion"
@@ -141,11 +156,10 @@ const AddPatient = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">RELIGION</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {religion.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
-                                    <label htmlFor="gender" className="sr-only">gender</label>
                                     <select
                                         name="occupation"
                                         id="occupation"
@@ -153,7 +167,7 @@ const AddPatient = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">OCCUPATION</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {occupations.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
@@ -169,8 +183,8 @@ const AddPatient = ({ closeAddModal }) => {
                                 <div className="w-full">
                                     <input
                                         type="text"
-                                        name="lastname"
-                                        id="lastname"
+                                        name="lnnok"
+                                        id="lnnok"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                         placeholder="Last Name Of Next Of Kin"
                                         onChange={handleChange}
@@ -179,8 +193,8 @@ const AddPatient = ({ closeAddModal }) => {
                                 <div className="w-full">
                                     <input
                                         type="text"
-                                        name="pnok"
-                                        id="pnok"
+                                        name="pnnok"
+                                        id="pnnok"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                         placeholder="Phone Number Of Next Of Kin"
                                         onChange={handleChange}
@@ -189,8 +203,8 @@ const AddPatient = ({ closeAddModal }) => {
                             </div>
                             <div className="w-full">
                                 <textarea
-                                    name="note"
-                                    id="note"
+                                    name="address"
+                                    id="address"
                                     className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                     placeholder="ADDRESS"
                                     onChange={handleChange}
@@ -198,8 +212,8 @@ const AddPatient = ({ closeAddModal }) => {
                             </div>
                             <div className="w-full">
                                 <textarea
-                                    name="note"
-                                    id="note"
+                                    name="anok"
+                                    id="anok"
                                     className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                     placeholder="ADDRESS OF NEXT OF KIN"
                                     onChange={handleChange}
@@ -212,8 +226,8 @@ const AddPatient = ({ closeAddModal }) => {
                 </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" onClick={() => { }} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-green-300 text-base font-medium text-green-700 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
-                    Save
+                <button type="button" onClick={save} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-green-300 text-base font-medium text-green-700 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    {loading ? "Saveing" : "Save"}
                 </button>
                 <button type="button" onClick={closeAddModal} className="mt-3 w-full inline-flex justify-center rounded-md border  shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none  sm:mt-0 sm:w-auto sm:text-sm">
                     Cancel

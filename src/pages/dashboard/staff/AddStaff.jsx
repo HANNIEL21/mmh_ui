@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { MdOutlineAdd } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStaffs } from '../../../redux/Features/Dashboard';
+import { baseUrl, gender, marital_status, occupations, religion } from '../../../utils/constant';
+import Alert from '../../../components/Alert';
 
 const AddStaff = ({ closeAddModal }) => {
+    const dispatch = useDispatch();
+    const staffs = useSelector((state) => state.dashboard.staffs);
+
     const [formData, setFormData] = useState({
-        category: '',
+        firstname: '',
+        lastname: '',
+        age: '',
+        gender: '',
+        email: '',
+        role: '',
+        address: '',
+        occupation: '',
+        marital_status: '',
+        phone: '',
+        religion: '',
+        fnnok: '',
+        lnnok: '',
+        pnnok: '',
+        anok: ''
     });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -15,22 +38,30 @@ const AddStaff = ({ closeAddModal }) => {
         }));
     };
 
-    // const save = async () => {
-    //     try {
-    //         console.log(formData);
-    //         // Save the question
-    //         const questionResponse = await axios.post(`${baseApiUrl}/question.php`, formData);
+    const save = async () => {
+        setLoading(true);
+        try {
+            console.log(formData);
+            const res = await axios.post(`${baseUrl}/staff.php`, formData);
 
-    //         if (questionResponse.status === 200) {
-    //             console.log('Question saved successfully');
-    //             closeAddModal();
-    //         } else {
-    //             console.error('Failed to save question:', questionResponse.statusText);
-    //         }
-    //     } catch (error) {
-    //         console.error('An error occurred while saving question', error.message);
-    //     }
-    // };
+            if (res.status === 201) {
+                const newData = res.data?.data;
+
+                const updatedStaffs = [...staffs, newData];
+                dispatch(setStaffs(updatedStaffs));
+
+                Alert("success", "Account Created");
+            } else {
+                Alert("error", "Failed to create account");
+            }
+        } catch (error) {
+            console.error('An error occurred while saving the staff:', error.message);
+            Alert("error", "Network Error.");
+        } finally {
+            setLoading(false);
+            closeAddModal();
+        }
+    };
 
     return (
         <div>
@@ -94,7 +125,7 @@ const AddStaff = ({ closeAddModal }) => {
                                     />
                                 </div>
                                 <div className="w-full">
-                                    <label htmlFor="gender" className="sr-only">gender</label>
+                                    <label htmlFor="marital_status" className="sr-only">gender</label>
                                     <select
                                         name="marital_status"
                                         id="marital_status"
@@ -102,7 +133,7 @@ const AddStaff = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">MARITAL STATUS</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {marital_status.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
@@ -114,7 +145,7 @@ const AddStaff = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">GENDER</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {gender.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
@@ -126,7 +157,7 @@ const AddStaff = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">RELIGION</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {religion.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
@@ -138,7 +169,7 @@ const AddStaff = ({ closeAddModal }) => {
                                         onChange={handleChange}
                                     >
                                         <option value="">OCCUPATION</option>
-                                        {/* {categories.map((item, i) => (<option key={i} value={item}>{item}</option>))} */}
+                                        {occupations.map((item, i) => (<option key={i} value={item}>{item}</option>))}
                                     </select>
                                 </div>
                                 <div className="w-full">
@@ -154,8 +185,8 @@ const AddStaff = ({ closeAddModal }) => {
                                 <div className="w-full">
                                     <input
                                         type="text"
-                                        name="lastname"
-                                        id="lastname"
+                                        name="lnnok"
+                                        id="lnnok"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                         placeholder="Last Name Of Next Of Kin"
                                         onChange={handleChange}
@@ -164,8 +195,8 @@ const AddStaff = ({ closeAddModal }) => {
                                 <div className="w-full">
                                     <input
                                         type="text"
-                                        name="pnok"
-                                        id="pnok"
+                                        name="pnnok"
+                                        id="pnnok"
                                         className="border-2 focus:border-blue-500 p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                         placeholder="Phone Number Of Next Of Kin"
                                         onChange={handleChange}
@@ -174,8 +205,8 @@ const AddStaff = ({ closeAddModal }) => {
                             </div>
                             <div className="w-full">
                                 <textarea
-                                    name="note"
-                                    id="note"
+                                    name="address"
+                                    id="address"
                                     className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                     placeholder="ADDRESS"
                                     onChange={handleChange}
@@ -183,8 +214,8 @@ const AddStaff = ({ closeAddModal }) => {
                             </div>
                             <div className="w-full">
                                 <textarea
-                                    name="note"
-                                    id="note"
+                                    name="anok"
+                                    id="anok"
                                     className="border-2 focus:border-appColor p-2 block w-full sm:text-sm border-slate-300 rounded-md"
                                     placeholder="ADDRESS OF NEXT OF KIN"
                                     onChange={handleChange}
@@ -197,8 +228,8 @@ const AddStaff = ({ closeAddModal }) => {
                 </div>
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" onClick={() => { }} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-green-300 text-base font-medium text-green-700 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
-                    Save
+                <button type="button" onClick={save} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 border-green-300 text-base font-medium text-green-700 hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    {loading ? "Saving..." : "Save"}
                 </button>
                 <button type="button" onClick={closeAddModal} className="mt-3 w-full inline-flex justify-center rounded-md border  shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none  sm:mt-0 sm:w-auto sm:text-sm">
                     Cancel

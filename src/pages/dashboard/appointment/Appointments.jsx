@@ -59,8 +59,13 @@ const Appointments = () => {
       sortable: true,
     },
     {
-      name: 'FULL NAME',
-      selector: row => `${row.firstname} ${row.lastname}`,
+      name: 'FIRSTNAME',
+      selector: row =>row.firstname,
+      sortable: true,
+    },
+    {
+      name: 'LASTNAME',
+      selector: row => row.lastname,
       sortable: true,
     },
     {
@@ -140,9 +145,6 @@ const Appointments = () => {
     },
   ];
 
-  const upcomingAppointments = appointments?.filter((appointment) => new Date(appointment.date) >= new Date());
-  const pastAppointments = appointments?.filter((appointment) => new Date(appointment.date) < new Date());
-
   useEffect(() => {
     const fetch = async () => {
       const res = await axios.get(`${baseUrl}/appointment.php`);
@@ -155,22 +157,54 @@ const Appointments = () => {
     fetch();
   }, [dispatch]);
 
+  console.log(appointments);
+
+
+  const isTodayOrAfter = (dateString) => {
+    const appointmentDate = new Date(dateString);
+    const today = new Date();
+
+    // Set the time of "today" to 00:00:00 to only compare dates, not times
+    today.setHours(0, 0, 0, 0);
+
+    return appointmentDate >= today;
+  };
+
+  const upcomingAndTodayAppointments = Array.isArray(appointments)
+    ? appointments.filter((appointment) => isTodayOrAfter(appointment.date))
+    : [];
+
+  const isPast = (dateString) => {
+    const appointmentDate = new Date(dateString);
+    const today = new Date();
+
+    // Set the time of "today" to 00:00:00 to only compare dates, not times
+    today.setHours(0, 0, 0, 0);
+
+    return appointmentDate < today;
+  };
+
+  const pastAppointments = Array.isArray(appointments)
+    ? appointments.filter((appointment) => isPast(appointment.date))
+    : [];
+
+
+
   return (
-    <main className='w-full h-full px-5 py-3 flex gap-5'>
-      <section className="bg-white w-full h-full rounded-lg px-5">
+    <main className='w-full h-full lg:px-5 py-3 flex gap-5'>
+      <section className="bg-white w-full h-full rounded-lg lg:px-5">
         <Table
           title="Appointments"
-          label={columns}
-          filter={"code"}
-          showFilter={true}
+          columns={columns}
+          filter={true}
           data={appointments}
           children={
             <>
               <button
                 onClick={() => openModal("add")}
-                className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md px-3 py-1 focus:outline-none"
+                className="bg-appColor flex items-center gap-2 text-white font-bold text-sm rounded-md p-3 focus:outline-none"
               >
-                <MdAdd className='text-white' /> <p>Add Appointment</p>
+                <MdAdd className='text-white text-lg' /> <p className='hidden lg:flex'>Add Appointment</p>
               </button>
 
               {isOpenAddModal && (
@@ -191,14 +225,14 @@ const Appointments = () => {
         />
       </section>
 
-      <section className="w-2/6 h-full flex flex-col gap-5">
+      <section className="hidden w-2/6 h-full lg:flex flex-col gap-5">
         <div className="bg-white h-2/4 rounded-lg">
           <div className='bg-appColor p-2 rounded-t-lg'>
             <h3 className="font-bold text-white ">Upcoming Appointments</h3>
           </div>
           <div className='p-2 flex flex-col gap-1 overflow-auto'>
-            {upcomingAppointments?.length > 0 ? (
-              upcomingAppointments.map((appointment) => (
+            {upcomingAndTodayAppointments?.length > 0 ? (
+              upcomingAndTodayAppointments.map((appointment) => (
                 <div key={appointment.id} className="p-2 rounded-md bg-appColor bg-opacity-20 flex items-center justify-between">
                   <p className='font-bold capitalize'>{appointment.firstname} {appointment.lastname}</p>
                   <p>{appointment.date} at {appointment.time}</p>

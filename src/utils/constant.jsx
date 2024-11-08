@@ -1,5 +1,5 @@
-// export const baseUrl = "https://bethesdamercymemorial.com/server/api";
-export const baseUrl = "http://localhost/mmh_backend/api";
+export const baseUrl = "https://bethesdamercymemorial.com/server/api";
+// export const baseUrl = "http://localhost/mmh_backend/api";
 
 export const role = [
     "ADMIN",
@@ -13,7 +13,7 @@ export const role = [
     "LABORATORY SCIENTIST",
 ]
 
-export const gender =  [
+export const gender = [
     "MALE",
     "FEMALE",
 ]
@@ -80,12 +80,12 @@ export const occupations = [
     "Mathematician",
     "Mechanic",
     "Medical Assistant",
-    "Med Lab",      
+    "Med Lab",
     "Military Personnel",
     "Musician",
     "Nurse",
     "Nutritionist",
-    "Painter",  
+    "Painter",
     "Paramedic",
     "Pharmacist",
     "Photographer",
@@ -116,5 +116,87 @@ export const occupations = [
     "Waitress",
     "Web Developer",
     "Writer"
+];
+
+
+
+export const HAEMATOLOGY = [
+    { test: "haemoglobin (hb)", range: "g/dl 12.5-18.0 m | 11.5-14.5 f" },
+    { test: "pcv (hct)", range: "% 40-55 m | 35-40 f" },
+    { test: "white cell count", range: "cmm 4,000-11,000" },
+    { test: "red cell count", range: "million/cumm 4.5-6.5 m | 4.0-5.5 f" },
+    { test: "esr (westergren)", range: "mm/hr 0-5 m | 0-7 f" },
+    { test: "reticulocyte count", range: "% 0.2-2" },
+    { test: "platelet count", range: "cmm 150-400,000" },
+    { test: "total eosinophil count", range: "cmm 40-440" },
+    { test: "sicking", range: "Negative or Positive" },
+    { test: "genotype", range: "AA, AS, SS" },
+    { test: "blood group / ph", range: "A, B, AB, O / Rh+ or Rh-" },
+    { test: "bleeding time", range: "min 0-11" },
+    { test: "clotting time", range: "min 5-11" },
+    { test: "prothrombine time", range: "secs 11-16" },
+    { test: "control", range: "secs 0-14" },
+    { test: "pttk", range: "secs 25-35" },
+    { test: "direct coonm's", range: "Negative or Positive" },
+    { test: "indirect coonm's", range: "Negative or Positive" },
+    { test: "differential (wcc)", range: "" },
+    { test: "neutrophils", range: "% 40-75" },
+    { test: "lymphocytes", range: "% 20-46" },
+    { test: "eosinophils", range: "% 1-6" },
+    { test: "monocytes", range: "% 2-10" },
+    { test: "basophils", range: "% 0-1" },
+    { test: "mcv", range: "umz 76-93" },
+    { test: "mch", range: "mmg 27-32" },
+    { test: "mchc", range: "% 30.8-35.0" },
+    { test: "malaria parasites", range: "Negative or Positive" },
+    { test: "microfilaria", range: "Negative or Positive" }
+];
+
+
+
+export const CHEMISTRY = [
+    { test: "fasting blood sugar", range: "mg/dl 70-110" },
+    { test: "random blood sugar", range: "mg/dl <140" },
+    { test: "blood urea", range: "mg/dl 10-40" },
+    { test: "sodium", range: "mEq/L 135-145" },
+    { test: "potassium", range: "mEq/L 3.5-5.0" },
+    { test: "bicarbonate (hco3)", range: "mEq/L 22-29" },
+    { test: "chloride", range: "mEq/L 96-106" },
+    { test: "creatnine (blood)", range: "mg/dl 0.6-1.2" },
+    { test: "creatnine (urine)", range: "mg/dl 15-25" },
+    { test: "sgot", range: "U/L 10-40" },
+    { test: "sgpt", range: "U/L 10-40" },
+    { test: "alkaline (phos)", range: "U/L 44-147" },
+    { test: "total bilirubin", range: "mg/dl 0.1-1.2" },
+    { test: "direct bilirubin", range: "mg/dl 0-0.3" },
+    { test: "total protein", range: "g/dl 6.0-8.3" },
+    { test: "albumin", range: "g/dl 3.5-5.0" },
+    { test: "cholesterol", range: "mg/dl <200" },
+    { test: "triglyceride", range: "mg/dl <150" },
+    { test: "hdl", range: "mg/dl >40" },
+    { test: "ldl", range: "mg/dl <100" },
+    { test: "uric acid", range: "mg/dl 3.5-7.2" },
+    { test: "calcium", range: "mg/dl 8.5-10.5" }
+];
+
+export const culture = [
+    { name: "amplicillin", sensitivity: "", culture: "" },
+    { name: "amoxicillin", sensitivity: "", culture: "" },
+    { name: "cotrimoxazole", sensitivity: "", culture: "" },
+    { name: "ciprofloxacin", sensitivity: "", culture: "" },
+    { name: "erythromycin", sensitivity: "", culture: "" },
+    { name: "chloramphenicol", sensitivity: "", culture: "" },
+    { name: "gentamycin", sensitivity: "", culture: "" },
+    { name: "nitrofurantoin", sensitivity: "", culture: "" },
+    { name: "augmentin", sensitivity: "", culture: "" },
+    { name: "ofloxacin", sensitivity: "", culture: "" },
+    { name: "norfloxacin", sensitivity: "", culture: "" },
+    { name: "streptomycin", sensitivity: "", culture: "" },
+    { name: "ceftriaxone", sensitivity: "", culture: "" },
+    { name: "levofloxacin", sensitivity: "", culture: "" },
+    { name: "cephalexin", sensitivity: "", culture: "" },
+    { name: "rocephin", sensitivity: "", culture: "" },
+    { name: "salbacef", sensitivity: "", culture: "" },
+    { name: "lyntriaxone", sensitivity: "", culture: "" }
 ];
 

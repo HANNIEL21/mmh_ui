@@ -1,42 +1,51 @@
 import React, { useState, useEffect } from 'react';
-import { MdEdit, MdDelete, MdAdd } from "react-icons/md";
-import Table from '../../../components/Table';
 import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAppointments } from '../../../redux/Features/Dashboard';
 import { useParams } from 'react-router-dom';
+import Table from '../../../components/Table';
+import { setAppointments } from '../../../redux/Features/Dashboard';
 
 
 const RecordsAppointment = () => {
   const dispatch = useDispatch();
-  const { appointments } = useSelector((state) => state.dashboard);
+  const {appointments} = useSelector((state)=>state.dashboard);
 
   const { patient } = useParams();
-  const [data, setData] = useState({});
-
-  console.log(patient);
-  
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await axios.get(`${baseUrl}/appointment.php?id=${patient.ref}`);
-      if (res.status === 200) {
-        dispatch(setAppointments(res.data?.data));
-      } else {
-        console.error('Failed to fetch appointments');
+    const fetchData = async () => {
+      try {
+        const patientRes = await axios.get(`${baseUrl}/patients.php?id=${patient}`);
+        const patientData = patientRes.data?.data;
+
+        console.log(patientData?.ref);
+
+        if (patientData?.ref) {
+          const appointmentRes = await axios.get(`${baseUrl}/appointment.php?ref=${patientData.ref}`);
+          console.log(appointmentRes);
+
+          if (appointmentRes.status === 200) {
+            console.log(appointmentRes.data?.data);
+            
+            dispatch(setAppointments(appointmentRes.data?.data));
+          } else {
+            console.error('Failed to fetch appointments');
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
       }
     };
-    fetch();
-  }, [dispatch]);
 
+    fetchData();
+  }, [dispatch, patient]);
+
+
+  console.log(appointments);
+  
 
   const columns = [
-    {
-      name: 'ID',
-      selector: row => row.id,
-      sortable: true,
-    },
     {
       name: 'FULL NAME',
       selector: row => `${row.firstname} ${row.lastname}`,
@@ -72,13 +81,13 @@ const RecordsAppointment = () => {
 
 
   return (
-    <main className='w-full h-full px-5 py-3 flex gap-5'>
+    <main className='w-full h-full lg:px-5 py-3 flex gap-5 overflow-auto'>
       <section className="bg-white w-full h-full rounded-lg px-5">
         <Table
-          label={columns}
-          filter={"code"}
-          showFilter={false}
+          title={"Appointment"}
+          columns={columns}
           data={appointments}
+          filter={true}
         />
       </section>
     </main>

@@ -8,7 +8,7 @@ import { TbReport } from "react-icons/tb";
 import { FaCog } from "react-icons/fa";
 import { useSelector, useDispatch } from 'react-redux';
 
-export default function Sidebar() {
+export default function Sidebar({style}) {
     const location = useLocation();
     const { data } = useSelector((state) => state.user);
 
@@ -30,9 +30,9 @@ export default function Sidebar() {
         { name: "appointments", href: "/dashboard/appointments", icon: <FaClipboard /> },
         { name: "calendar", href: "/dashboard/calendar", icon: <FaCalendarDays /> },
         { name: "Patients", href: "/dashboard/patients", icon: <FaUserInjured /> },
-        { name: "nurses", href: "/dashboard/nurses", icon: <FaUserNurse /> },
+        { name: "Staffs", href: "/dashboard/staffs", icon: <FaPeopleGroup  /> },
         { name: "records", href: "/dashboard/records", icon: <FaFileMedical /> },
-        { name: "investigation", href: "/dashboard/investigation", icon: <FaUserDoctor /> },
+        { name: "consultation", href: "/dashboard/consultation", icon: <FaUserDoctor /> },
     ];
 
     const nurseLinks = [
@@ -91,7 +91,7 @@ export default function Sidebar() {
 
 
     return (
-        <aside className="h-full w-[250px] shadow-md flex items-center" >
+        <aside className={`h-full w-[250px] shadow-md items-center flex ${style}`} >
             {data?.role === "ADMIN" ? (
                 <ul className=" flex flex-col gap-2 px-8">
                     {links.map((link, index) => {

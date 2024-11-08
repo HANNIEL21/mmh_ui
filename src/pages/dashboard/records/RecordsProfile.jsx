@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 
 const RecordsProfile = () => {
   const { patient } = useParams();
-  const [data, setData] = useState({});
-  const [vitals, setVitals] = useState({});
+  const [data, setData] = useState([]);
+  const [vitals, setVitals] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,16 +25,16 @@ const RecordsProfile = () => {
   }, [patient]);
 
   return (
-    <main className='w-full p-3 flex flex-col gap-4'>
+    <main className='w-full lg:p-3 flex flex-col gap-4'>
       <section className='w-full'>
         <div className='w-full flex gap-3'>
           <span className='w-1 bg-slate-500'></span>
-          <div className='w-full flex justify-between gap-5'>
+          <div className='w-full flex justify-between items-center gap-5'>
             <p className='uppercase font-extrabold text-slate-500'>Patient Information</p>
             <p className='uppercase font-extrabold text-slate-500'>updated: <span>{data?.updated_at}</span></p>
           </div>
         </div>
-        <div className='px-4 py-2 grid grid-cols-5 gap-3'>
+        <div className='px-4 py-2 grid grid-cols-1 lg:grid-cols-5 gap-3'>
           <div>
             <p className='text-slate-500 text-sm font-bold capitalize'>Age</p>
             <p className='font-bold capitalize'>{data?.age} years old</p>
@@ -80,12 +80,12 @@ const RecordsProfile = () => {
       <section className='w-full'>
         <div className='w-full flex gap-3'>
           <span className='w-1 bg-slate-500'></span>
-          <div className='w-full flex justify-between gap-5'>
+          <div className='w-full flex justify-between items-center gap-5'>
             <p className='uppercase font-extrabold text-slate-500'>Medical Information</p>
             <p className='uppercase font-extrabold text-slate-500'>updated: <span>{vitals?.updated_at}</span></p>
           </div>
         </div>
-        <div className='px-4 py-2 grid grid-cols-5 gap-3'>
+        <div className='px-4 py-2 grid grid-cols-1 lg:grid-cols-5 gap-3'>
           <div>
             <p className='text-slate-500 text-sm font-bold capitalize'>Temperature</p>
             <p className='font-bold'>{vitals?.temperature}</p>

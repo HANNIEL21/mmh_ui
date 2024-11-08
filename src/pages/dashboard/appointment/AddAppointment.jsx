@@ -9,7 +9,7 @@ import { setAppointments } from '../../../redux/Features/Dashboard';
 
 const AddAppointment = ({ closeAddModal }) => {
     const dispatch = useDispatch();
-    const appointments = useSelector((state) => state.dashboard.appointments); // Get current appointments
+    const appointments = useSelector((state) => state.dashboard.appointments);
 
     const [formData, setFormData] = useState({
         type: '',
@@ -22,7 +22,6 @@ const AddAppointment = ({ closeAddModal }) => {
     });
 
     const [loading, setLoading] = useState(false);
-    const [alert, setAlert] = useState({ message: '', type: '' });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,7 +40,6 @@ const AddAppointment = ({ closeAddModal }) => {
             if (res.status === 201) {
                 const newAppointment = res.data?.data;
                 
-                // Update the appointments list in the Redux store
                 const updatedAppointments = [...appointments, newAppointment];
                 dispatch(setAppointments(updatedAppointments));
 

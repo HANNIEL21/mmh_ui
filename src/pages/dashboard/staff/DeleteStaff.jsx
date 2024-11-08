@@ -9,23 +9,19 @@ const DeleteStaff = ({ closeDeleteModal, id }) => {
     const handleDelete = async (id) => {
         try {
             console.log(id);
-            // Send a DELETE request to your backend endpoint with the user ID
-            const response = await axios.delete(`${baseUrl}/staffs.php?id=${id}`);
-            if (response.status === 200) {
-                // User deleted successfully
-                Alert(response.data.status, response.data.message)
-                console.log(response.data);
+            const res = await axios.delete(`${baseUrl}/staff.php?id=${id}`);
+            console.log(res);
+
+            if (res.status === 200) {
+                Alert("success", "Staff Deleted");
             } else {
-                // Failed to delete user
-                Alert(response.data.status, response.data.message)
-                console.error('Failed to delete staff:', response.statusText);
+                console.error('Failed to delete staff:', res.statusText);
+                Alert("success", "Failed to delete staff");
             }
         } catch (error) {
-            // An error occurred while deleting user
-            Alert("error", error.message)
+            Alert("success", "Network Error");
             console.error('An error occurred while deleting staff:', error.message);
         } finally {
-            // Close the delete user modal regardless of the outcome
             closeDeleteModal();
         }
     };
