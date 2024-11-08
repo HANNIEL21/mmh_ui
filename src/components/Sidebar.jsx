@@ -30,9 +30,9 @@ export default function Sidebar({style}) {
         { name: "appointments", href: "/dashboard/appointments", icon: <FaClipboard /> },
         { name: "calendar", href: "/dashboard/calendar", icon: <FaCalendarDays /> },
         { name: "Patients", href: "/dashboard/patients", icon: <FaUserInjured /> },
-        { name: "nurses", href: "/dashboard/nurses", icon: <FaUserNurse /> },
+        { name: "Staffs", href: "/dashboard/staffs", icon: <FaPeopleGroup  /> },
         { name: "records", href: "/dashboard/records", icon: <FaFileMedical /> },
-        { name: "investigation", href: "/dashboard/investigation", icon: <FaUserDoctor /> },
+        { name: "consultation", href: "/dashboard/consultation", icon: <FaUserDoctor /> },
     ];
 
     const nurseLinks = [

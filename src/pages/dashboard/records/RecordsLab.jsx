@@ -4,14 +4,14 @@ import axios from 'axios';
 import { baseUrl } from '../../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { setResults } from '../../../redux/Features/Dashboard';
 
 
 const RecordsLab = () => {
   const dispatch = useDispatch();
+  const {results} = useSelector((state)=>state.dashboard);
 
   const { patient } = useParams();
-  const [data, setData] = useState([]);
-  const [result, setResult] = useState([]);
 
   console.log(patient);
 
@@ -21,7 +21,6 @@ const RecordsLab = () => {
       try {
         const patientRes = await axios.get(`${baseUrl}/patients.php?id=${patient}`);
         const patientData = patientRes.data?.data;
-        setData(patientData);
 
         console.log(patientData?.ref);  // Log ref from patient data
 
@@ -31,7 +30,8 @@ const RecordsLab = () => {
           console.log(appointmentRes.data);
 
           if (appointmentRes.status === 200) {
-            setResult(appointmentRes.data)
+            dispatch(setResults(appointmentRes.data))
+            
           } else {
             console.error('Failed to fetch results');
           }
@@ -75,10 +75,10 @@ const RecordsLab = () => {
     <main className='w-full h-full md:px-5 py-3 flex gap-5 overflow-auto'>
       <section className="bg-white w-full h-full rounded-lg px-5">
         <Table
-          title={"Results"}
+          title={"Lab Test Results"}
           columns={columns}
           filter={true}
-          data={result}
+          data={results}
         />
       </section>
     </main>

@@ -4,34 +4,31 @@ import { baseUrl } from '../../../utils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Table from '../../../components/Table';
+import { setAppointments } from '../../../redux/Features/Dashboard';
 
 
 const RecordsAppointment = () => {
   const dispatch = useDispatch();
+  const {appointments} = useSelector((state)=>state.dashboard);
 
   const { patient } = useParams();
-  const [data, setData] = useState({});
-  const [appointment, setAppointment] = useState([]);
-
-  console.log(appointment);
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const patientRes = await axios.get(`${baseUrl}/patients.php?id=${patient}`);
         const patientData = patientRes.data?.data;
-        setData(patientData);
 
-        console.log(patientData?.ref);  // Log ref from patient data
+        console.log(patientData?.ref);
 
-        // Only proceed if patientData has a reference (ref)
         if (patientData?.ref) {
           const appointmentRes = await axios.get(`${baseUrl}/appointment.php?ref=${patientData.ref}`);
           console.log(appointmentRes);
 
           if (appointmentRes.status === 200) {
-            setAppointment(appointmentRes.data?.data)
+            console.log(appointmentRes.data?.data);
+            
+            dispatch(setAppointments(appointmentRes.data?.data));
           } else {
             console.error('Failed to fetch appointments');
           }
@@ -45,6 +42,8 @@ const RecordsAppointment = () => {
   }, [dispatch, patient]);
 
 
+  console.log(appointments);
+  
 
   const columns = [
     {
@@ -87,7 +86,7 @@ const RecordsAppointment = () => {
         <Table
           title={"Appointment"}
           columns={columns}
-          data={appointment}
+          data={appointments}
           filter={true}
         />
       </section>

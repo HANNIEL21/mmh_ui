@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { baseUrl } from '../../../../utils/constant';
 
 const Consultation = () => {
-
+    const {data} = useSelector((state)=>state.user);
+    
     const [formData, setFormData] = useState({
         ref: '',
         type: 'CONSULTATION',
-        staff: '',
+        staff: `${data?.firstname} ${data?.lastname}`,
         complain: '',
         hoc: '',
         course: '',
@@ -37,44 +38,43 @@ const Consultation = () => {
     const save = async () => {
         setLoading(true);
         try {
-            console.log(formData);
-            const res = await axios.post(`${baseUrl}/patients.php`, formData);
+            const res = await axios.post(`${baseUrl}/record.php`, formData);
+            console.log(res);
 
             if (res.status === 201) {
-                Alert("success", "Patient Created");
+                Alert("success", "Record Created");
             } else {
-                Alert("error", "Failed to create Created");
+                Alert("error", "Failed to create record");
                 console.log(res);
             }
         } catch (error) {
             Alert("error", "Network Error");
-            console.error('An error occurred while saving question', error.message);
+            console.error('An error occurred while saving record', error.message);
         } finally {
             setLoading(false);
-            // closeAddModal();
         }
     };
 
     return (
         <div className='p-5'>
-            <form action="" className='grid grid-cols-2 gap-10'>
-                <textarea name="complain" placeholder='Complain' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="hoc" placeholder='History Of Complain' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="cause" placeholder='Cause' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="course" placeholder='Course' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="complication" placeholder='Complication' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="care" placeholder='Care' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="pmh" placeholder='Past Medical History' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="sr" placeholder='System Review' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="fsh" placeholder='Family and Social History' className='rounded-2xl p-3' rows={6} id=""></textarea>
-                <textarea name="pd" placeholder='Possible Diagnoses' className='rounded-2xl p-3' rows={6} id=""></textarea>
+            <form action="" className='grid md:grid-cols-2 gap-10'>
+                <textarea onChange={handleChange} name="complain" placeholder='Complain' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="hoc" placeholder='History Of Complain' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="cause" placeholder='Cause' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="course" placeholder='Course' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="complication" placeholder='Complication' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="care" placeholder='Care' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="pmh" placeholder='Past Medical History' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="sr" placeholder='System Review' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="fsh" placeholder='Family and Social History' className='rounded-2xl p-3' rows={6} id=""></textarea>
+                <textarea onChange={handleChange} name="pd" placeholder='Possible Diagnoses' className='rounded-2xl p-3' rows={6} id=""></textarea>
 
             </form>
-            <div className='w-full my-4 flex items-center'>
+            <div className='w-full gap-3 my-4 flex items-center'>
                 <div className="w-full">
-                    <input name="ref" placeholder='REFERENCE NUMBER' className='rounded-2xl p-3 w-3/6' id="" />
+                    <input name="ref" onChange={handleChange} placeholder='REFERENCE NUMBER' className='rounded-2xl p-3 w-full md:w-3/6' id="" />
                 </div>
-                <button className='p-2 px-10 bg-appColor rounded-md text-white font-bold'>{loading ? "SAVING...." : "SAVE"}</button>
+                <button onClick={save} className='p-2 px-10 bg-appColor rounded-md text-white font-bold'>{loading ? "SAVING...." : "SAVE"}</button>
             </div>
         </div>
     )
